@@ -1,0 +1,7 @@
+<?php
+
+$DB_HOST = "123.45.67.89";
+$DB_PORT = "3306";
+$DB_USER = "DB_USER";
+$DB_PASSWORD = "DB_PASSWORD";
+$DB_DATABASE = "DB_NAME";
