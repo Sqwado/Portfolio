@@ -2,6 +2,12 @@
 
 class Database
 {
+    public $connection;
+    private $sql;
+    public $stmt;
+
+    public $data;
+
     public function __construct(
         private string $host,
         private string $port,
@@ -9,16 +15,57 @@ class Database
         private string $user,
         private string $password
     ) {
+        $this->getConnection();
     }
 
-    public function getConnection(): PDO
+    public function getConnection(): void
     {
         $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->name};charset=utf8";
-        return new PDO($dsn, $this->user, $this->password, [
+        $this->connection = new PDO($dsn, $this->user, $this->password, [
             PDO::ATTR_EMULATE_PREPARES => false,
             PDO::ATTR_STRINGIFY_FETCHES => false
         ]);
-
     }
 
+    public function presql(string $sql): void
+    {
+        $this->sql = $sql;
+        $this->stmt = $this->connection->prepare($this->sql);
+    }
+
+    public function execute(): void
+    {
+        $this->stmt->execute();
+        $data = [];
+
+        while ($row = $this->stmt->fetch(PDO::FETCH_ASSOC)) {
+            $data[] = $row;
+        }
+
+        $this->data = $data;
+    }
+
+    public function bindParam(string $param, $value, int $type = null): void
+    {
+        if (is_null($type)) {
+            switch (true) {
+                case is_int($value):
+                    $type = PDO::PARAM_INT;
+                    break;
+
+                case is_bool($value):
+                    $type = PDO::PARAM_BOOL;
+                    break;
+
+                case is_null($value):
+                    $type = PDO::PARAM_NULL;
+                    break;
+
+                default:
+                    $type = PDO::PARAM_STR;
+            }
+        }
+
+        $this->stmt->bindParam($param, $value, $type);
+    }
 }

@@ -41,3 +41,20 @@ h6 {
     transition: transform 0.5s ease;
     border-radius: 10px;
 }
+
+.main_img_project {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.project{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 1rem 0;
+}

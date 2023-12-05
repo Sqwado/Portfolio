@@ -1,28 +1,10 @@
 <?php
 
-$code = <<< EOT
-<h6>test</h6>
-<div class="img_wrapper">
-    <img src="https://picsum.photos/1920/1080">
-</div>
-<div class="img_wrapper">
-    <img src="https://picsum.photos/1900/1080">
-</div>
-<hr>
-<h6>test</h6>
-<div class="img_wrapper">
-    <img src="https://picsum.photos/920/600">
-</div>
-EOT;
+$database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWORD);
 
-if (isset($_POST)) {
-    $code = $_POST["code"];
-} else {
-    echo "no post";
-}
+$project = new Project($database);
 
-unset($_POST);
-
+$projects = $project->getProjects();
 
 ?>
 
@@ -31,104 +13,29 @@ unset($_POST);
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="/css/style.css"> -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <title>Home</title>
     <link rel="stylesheet" href="/css/home.css">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.css">
-    <style type="text/css">
-        .preview {
-            border: 1px solid black;
-            padding: 10px;
-        }
-    </style>
 </head>
 
 <body>
-    <h1>Code</h1>
+    <h1>Home</h1>
 
-    <form action=<?php echo $_SERVER["REQUEST_URI"]; ?> method="post">
-        <pre>
-            <code class="language-html" contenteditable="true" spellcheck='false'><?php echo htmlspecialchars($code); ?></code>
-        </pre>
+    <div class="container">
+        <div class="projects">
+            <h2>Projects</h2>
+            <?php foreach ($projects as $project) : ?>
+                <div class="project">
+                    <h3><?php echo $project["titre"]; ?></h3>
+                    <img class="main_img_project" src="<?php echo $project["main_img"]; ?>" alt="<?php echo $project["titre"]; ?>">
+                    <p><?php echo $project["description"]; ?></p>
+                    <p><?php echo $project["publi_date"]; ?></p>
+                </div>
+            <?php endforeach; ?>
 
-        <input type="hidden" name="code" id="code_value" value="<?php echo htmlspecialchars($code); ?>">
+        </div>
 
-        <input type="submit" value="Envoyer">
-    </form>
+        <div class="articles">
+            <h2>Articles</h2>
 
-    <button id="add_img">Ajouter une image</button>
-    <button id="clean_code">Beautify</button>
-
-    <h1>Preview</h1>
-
-    <div class="preview">
-        <?php echo $code; ?>
+        </div>
     </div>
-
-</body>
-
-</html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.11/beautify-html.js"></script>
-
-<script>
-
-        console.log(<?php echo json_encode($code); ?>);
-
-    const code = document.querySelector("code");
-    const preview = document.querySelector(".preview");
-    const code_value = document.querySelector("#code_value");
-    const add_img = document.querySelector("#add_img");
-    const clean_code = document.querySelector("#clean_code");
-
-    beautify();
-
-    code.addEventListener("input", () => {
-        update_code();
-    });
-
-    clean_code.addEventListener("click", () => {
-        beautify();
-    });
-
-    function update_code() {
-        preview.innerHTML = code.textContent;
-        code_value.value = code.textContent;
-    }
-
-    function beautify() {
-        code.textContent = html_beautify(code.textContent);
-        update_code();
-        delete code.dataset.highlighted;
-        hljs.highlightAll();
-        code.focus();
-    }
-
-    add_img.addEventListener("click", () => {
-        insertTextAtCaret(`<div class="img_wrapper">
-        <img src="https://picsum.photos/1920/1080">
-        </div>`)
-        beautify();
-    });
-
-    function insertTextAtCaret(text) {
-        var sel, range;
-        if (window.getSelection) {
-            sel = window.getSelection();
-            if (sel.getRangeAt && sel.rangeCount) {
-                range = sel.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode(document.createTextNode(text));
-            }
-        } else if (document.selection && document.selection.createRange) {
-            document.selection.createRange().text = text;
-        }
-    }
-</script>
-
-<?php
-
-?>
