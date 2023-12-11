@@ -65,6 +65,7 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
                     </div>
                     <p class="description"><?php echo $project["description"]; ?></p>
                     <p><?php echo $project["publi_date"]; ?></p>
+
                     <!-- <p><?php echo $project["content"]; ?></p> -->
                 </div>
             </div>

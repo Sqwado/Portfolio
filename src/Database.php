@@ -2,10 +2,9 @@
 
 class Database
 {
-    public $connection;
+    private $connection;
     private $sql;
-    public $stmt;
-
+    private $stmt;
     public $data;
 
     public function __construct(
@@ -33,9 +32,32 @@ class Database
         $this->stmt = $this->connection->prepare($this->sql);
     }
 
+    public function bindParam(string $param, $value): void
+    {
+        switch (true) {
+            case is_int($value):
+                $type = PDO::PARAM_INT;
+                break;
+
+            case is_bool($value):
+                $type = PDO::PARAM_BOOL;
+                break;
+
+            case is_null($value):
+                $type = PDO::PARAM_NULL;
+                break;
+
+            default:
+                $type = PDO::PARAM_STR;
+        }
+
+        $this->stmt->bindParam($param, $value, $type);
+    }
+
     public function execute(): void
     {
         $this->stmt->execute();
+        
         $data = [];
 
         while ($row = $this->stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -43,29 +65,5 @@ class Database
         }
 
         $this->data = $data;
-    }
-
-    public function bindParam(string $param, $value, int $type = null): void
-    {
-        if (is_null($type)) {
-            switch (true) {
-                case is_int($value):
-                    $type = PDO::PARAM_INT;
-                    break;
-
-                case is_bool($value):
-                    $type = PDO::PARAM_BOOL;
-                    break;
-
-                case is_null($value):
-                    $type = PDO::PARAM_NULL;
-                    break;
-
-                default:
-                    $type = PDO::PARAM_STR;
-            }
-        }
-
-        $this->stmt->bindParam($param, $value, $type);
     }
 }

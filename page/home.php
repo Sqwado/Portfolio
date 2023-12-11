@@ -1,5 +1,13 @@
 <?php
 
+$request_uri = explode(".", $_SERVER["REQUEST_URI"]);
+
+$is_file = end($request_uri);
+
+if($is_file == "php" || $is_file == "html") {
+    header("Location: /home");
+}
+
 $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWORD);
 
 $project = new Project($database);

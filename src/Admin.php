@@ -7,7 +7,7 @@ class Admin
     ) {
     }
 
-    public function getAdmin(int $id): array
+    public function getAdminById(int $id): array
     {
         $this->database->presql("SELECT * FROM Admin WHERE id_admin = :id_admin");
         $this->database->bindParam(":id_admin", $id);
@@ -65,5 +65,20 @@ class Admin
         $this->database->presql("DELETE FROM Admin WHERE id_admin = :id_admin");
         $this->database->bindParam(":id_admin", $id);
         $this->database->execute();
+    }
+
+    public function login(string $email, string $password): void
+    {
+        $this->getAdminByEmail($email);
+        if (empty($this->database->data)) {
+            throw new Exception("Email not found");
+        } else {
+            $admin = $this->database->data[0];
+            if (password_verify($password, $admin["password"])) {
+                $_SESSION["admin"] = $admin;
+            } else {
+                throw new Exception("Wrong password");
+            }
+        }
     }
 }
