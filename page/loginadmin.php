@@ -3,9 +3,8 @@
 session_start();
 
 if (isset($_SESSION["admin"]) && !empty($_SESSION["admin"])) {
-    // header("Location: /admin");
-    // exit();
-    echo $_SESSION["admin"]["email"];
+    header("Location: /homeadmin");
+    exit();
 }
 
 $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWORD);
@@ -19,19 +18,23 @@ if (!isset($_SESSION["logAdmin"])) {
 if (isset($_POST) && !empty($_POST)) {
     if (empty($_POST["email"]) || empty($_POST["password"])) {
         showinput("Please fill all the fields");
+        clear();
+        exit();
     } else {
         try {
             $admin->login(htmlspecialchars($_POST["email"]), htmlspecialchars($_POST["password"]));
         } catch (Exception $e) {
             showinput($e->getMessage());
+            clear();
             exit();
         }
-        echo "<p class='msg'>Login success</p>";
-        header("Location: /admin");
+        clear();
+        header("Location: /homeadmin");
         exit();
     }
 } else {
     showinput("");
+    clear();
 }
 
 function showinput($message)
@@ -85,9 +88,12 @@ function showinput($message)
     $_SESSION["logAdmin"] = 0;
 }
 
-if ($_SESSION["logAdmin"] != 1) {
-    empty($_POST);
-    unset($_POST);
+function clear()
+{
+    if ($_SESSION["logAdmin"] != 1) {
+        empty($_POST);
+        unset($_POST);
+    }
 }
 
 ?>

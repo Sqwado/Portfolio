@@ -18,7 +18,7 @@ class Article
 
     public function getArticles(): array
     {
-        $this->database->presql("SELECT * FROM Article");
+        $this->database->presql("SELECT * FROM Article ORDER BY publi_date DESC");
         $this->database->execute();
 
         return $this->database->data;

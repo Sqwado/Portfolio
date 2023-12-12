@@ -1,0 +1,81 @@
+.TopBar {
+    width: calc(100vw - 2rem - 5px);
+    height: 50px;
+
+    padding: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #0000000c;
+}
+
+.logout {
+    font-size: 1.25rem;
+    font-weight: 600;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #292121;
+    background-color: #f3020283;
+    border-radius: 10px;
+
+    cursor: pointer;
+    width: 100px;
+    height: 50px;
+    margin: 0 0.5rem;
+    z-index: 1;
+    text-transform: uppercase;
+}
+
+.logout:hover {
+    background-color: #f30202;
+}
+
+.nav {
+    width: calc(100vw - 2rem);
+    height: 50px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #0000000c;
+    border-radius: 10px;
+
+    margin: 0.5rem;
+    padding: 0.5rem;
+
+    position: relative;
+}
+
+.redirect {
+    font-size: 1.25rem;
+
+    width: fit-content;
+    height: fit-content;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #0000000c;
+    border-radius: 10px;
+
+    margin: 0.5rem;
+    padding: 0.5rem;
+
+    cursor: pointer;
+    position: relative;
+}
+
+.redirect:hover {
+    background-color: #0000001a;
+}
+
+.active {
+    background-color: #3b3b3b8f;
+}

@@ -18,7 +18,7 @@ class Project
 
     public function getProjects(): array
     {
-        $this->database->presql("SELECT * FROM Project");
+        $this->database->presql("SELECT * FROM Project ORDER BY publi_date DESC");
         $this->database->execute();
 
         return $this->database->data;

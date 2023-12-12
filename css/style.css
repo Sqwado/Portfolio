@@ -21,8 +21,6 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
     line-height: 1.5;
     color: #212529;
     background-color: #fff;
@@ -32,4 +30,52 @@ a {
     color: #000000;
     text-decoration: none;
 }
+
+h1 {
+    margin: 8px;
+    padding: 0;
+    font-size: calc(3.5em + 3vmin);
+    font-weight: 600;
+    line-height: 1.2;
+    color: #212529;
+    text-transform: uppercase;
+}
+
+h2 {
+    margin: 0.5rem 0;
+    padding: 0;
+    font-size: calc(2.5em + 2vmin);
+    font-weight: 600;
+    line-height: 1.2;
+    color: #212529;
+    text-transform: uppercase;
+}
+
+h3 {
+    margin: 0.5rem 0;
+    padding: 0;
+    font-size: calc(1.5em + 1vmin);
+    font-weight: 600;
+    line-height: 1.2;
+    color: #212529;
+    text-transform: uppercase;
+}
+
+h6 {
+    margin: 1rem 0;
+    padding: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #212529;
+    text-transform: uppercase;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #0000000c;
+    border-radius: 10px;
+}
+
 

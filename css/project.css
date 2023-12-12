@@ -1,33 +1,5 @@
 @import url(/css/style.css);
 
-
-h3 {
-    margin: 0.5rem 0;
-    padding: 0;
-    font-size: 1.35rem;
-    font-weight: 600;
-    line-height: 1.2;
-    color: #212529;
-    text-transform: uppercase;
-}
-
-h6 {
-    margin: 1rem 0;
-    padding: 0;
-    font-size: 1.25rem;
-    font-weight: 500;
-    line-height: 1.2;
-    color: #212529;
-    text-transform: uppercase;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color: #0000000c;
-    border-radius: 10px;
-}
-
 .link {
     position: absolute;
     width: 100%;
@@ -38,19 +10,17 @@ h6 {
 }
 
 .projects {
-    width: 100vw;
+    width: fit-content;
 
     display: flex;
     align-items: center;
-
-    overflow-y: scroll;
-
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .project {
-
-    width: 300px;
-    height: 400px;
+    width: 380px;
+    height: 500px;
 
     padding: 1rem;
     margin: 1rem;
@@ -160,7 +130,7 @@ h6 {
     height: 100px;
     width: 100%;
 
-    font-size: 1rem;
+    font-size: 1.2rem;
 
     background-color: #0000000c;
     border-radius: 10px;
@@ -171,3 +141,18 @@ h6 {
 
     overflow-y: scroll;
 }
+
+.delete_proj{
+    z-index: 2;
+    object-fit: contain;
+    cursor: pointer;
+
+    background-color: #0000000c;
+    border-radius: 10px;
+
+    padding: 0.5rem;
+
+}
+
+
+

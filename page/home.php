@@ -14,6 +14,10 @@ $project = new Project($database);
 
 $projects = $project->getProjects();
 
+$article = new Article($database);
+
+$articles = $article->getArticles();
+
 ?>
 
 <!DOCTYPE html>
