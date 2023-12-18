@@ -30,7 +30,7 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
 ?>
 
         <body>
-            <h1><?php echo $project["titre"]; ?></h1>
+            <h2><?php echo $project["titre"]; ?></h2>
 
             <div class="container">
                 <div class="project">
@@ -82,7 +82,7 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
     ?>
 
     <body>
-        <h1>Projects</h1>
+        <h2>Projects</h2>
 
         <div class="container">
             <div class="projects">

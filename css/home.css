@@ -1,20 +1,5 @@
 @import url(/css/style.css);
 
-.img_wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem 0;
-}
-
-.img_wrapper img {
-    width: 90%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-    border-radius: 10px;
-}
-
 .link {
     position: absolute;
     width: 100%;

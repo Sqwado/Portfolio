@@ -28,8 +28,10 @@ if ($parts[1] == "home") {
     include("page/projectadmin.php");
 } elseif ($parts[1] == "newprojectadmin"){
     include("page/newprojectadmin.php");
-} elseif ($parts[1] == "editprojectadmin"){
-    include("page/editprojectadmin.php");
+} elseif ($parts[1] == "modifyprojectinfoadmin"){
+    include("page/modifyprojectinfoadmin.php");
+} elseif ($parts[1] == "modifyprojectcontentadmin"){
+    include("page/modifyprojectcontentadmin.php");
 } else {
     header("Location: /home");
 }

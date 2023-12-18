@@ -35,7 +35,7 @@ class Project
         $this->database->execute();
     }
 
-    public function updateProject(int $id, string $titre, string $main_img, string $description, string $publi_date, string $content): void
+    public function updateProject(int $id, string $titre, string $main_img, string $description, string $publi_date, string $content = null): void
     {
         $this->database->presql("UPDATE Project SET titre = :titre, main_img = :main_img, description = :description, publi_date = :publi_date, content = :content WHERE id_project = :id_project");
         $this->database->bindParam(":id_project", $id);
@@ -43,7 +43,8 @@ class Project
         $this->database->bindParam(":main_img", $main_img);
         $this->database->bindParam(":description", $description);
         $this->database->bindParam(":publi_date", $publi_date);
-        $this->database->bindParam(":content", $content);
+        if ($content != null) $this->database->bindParam(":content", $content);
+        else $this->database->bindParam(":content", "");
         $this->database->execute();
     }
 

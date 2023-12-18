@@ -9,6 +9,41 @@
     z-index: 1;
 }
 
+.top{
+    width: 100%;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.new_project {
+    width: fit-content;
+    height: fit-content;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #0000000c;
+    border-radius: 10px;
+
+    margin: 0.5rem;
+    padding: 0.5rem;
+
+    cursor: pointer;
+    position: relative;
+}
+
+.new_project:hover {
+    background-color: #0000001a;
+}
+
+.new_project img {
+    height: 30px;
+    width: 30px;
+    object-fit: contain;
+}
+
 .projects {
     width: fit-content;
 

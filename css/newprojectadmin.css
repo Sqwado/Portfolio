@@ -1,0 +1,44 @@
+@import url(/css/style.css);
+
+main{
+    display: flex;
+}
+
+.code{
+    width: 49vw;
+    margin: 0 0.5vw;
+}
+
+pre{
+    margin: 0;
+}
+
+code{
+    height: calc(45vh - (100px + 4rem + 16px + 1.5em + 1vmin));
+}
+
+.show{
+    width: 49vw;
+    margin: 0 0.5vw;
+}
+
+.preview{
+    height: calc(99vh - (100px + 4rem + 16px + 1.5em + 1vmin));
+    overflow-y: scroll;
+}
+
+.img_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.img_wrapper img {
+    width: 90%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    border-radius: 10px;
+}
+

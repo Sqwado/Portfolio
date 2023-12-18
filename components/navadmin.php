@@ -5,17 +5,20 @@
 <header>
     <div class="TopBar">
         <h1>Admin</h1>
+        <div class="dropnav">
+            <p id="navdropbtn" class="dropbtn not-selectable">Menu</p>
+            <div id="navcontent" class="dropnav-content not-selectable">
+                <a href="/homeadmin" id="homeadmin" class="redirect">Home</a>
+                <a href="/projectadmin" id="projectadmin" class="redirect">Projects</a>
+                <a href="/articleadmin" id="articleadmin" class="redirect">Articles</a>
+                <a href="/categorieadmin" id="articleadmin" class="redirect">Categories</a>
+                <a href="/messageadmin" id="messageadmin" class="redirect">Messages</a>
+                <a href="/competenceadmin" id="competenceadmin" class="redirect">Competences</a>
+            </div>
+        </div>
         <object>
-            <a href="/logoutadmin" class="logout">Log Out</a>
+            <a href="/logoutadmin" class="logout not-selectable">Log Out</a>
         </object>
-    </div>
-    <div class="nav">
-        <a href="/homeadmin" id="homeadmin" class="redirect">Home</a>
-        <a href="/projectadmin" id="projectadmin" class="redirect">Projects</a>
-        <a href="/articleadmin" id="articleadmin" class="redirect">Articles</a>
-        <a href="/categorieadmin" id="articleadmin" class="redirect">Categories</a>
-        <a href="/messageadmin" id="messageadmin" class="redirect">Messages</a>
-        <a href="/competenceadmin" id="competenceadmin" class="redirect">Competences</a>
     </div>
 
     <script>
@@ -24,6 +27,16 @@
         } catch (e) {
             console.log(e);
         }
+        
+        const navdropbtn = document.getElementById("navdropbtn");
+        const navcontent = document.getElementById("navcontent");
+
+        navdropbtn.addEventListener("click", () => {
+            navcontent.style.display = navcontent.style.display == "flex" ? "none" : "flex";
+            navdropbtn.classList.toggle("active");
+        });
+
+
     </script>
 
 </header>

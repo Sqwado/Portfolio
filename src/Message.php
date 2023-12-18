@@ -47,7 +47,11 @@ class Message{
         $this->database->bindParam(":email_back", $email_back);
         $this->database->bindParam(":content", $content);
 
-        $this->database->execute();
+        try {
+            $this->database->execute();
+        } catch (PDOException $e) {
+           throw new Exception("Erreur lors de la création du message");
+        }
     }
 
     public function updateMessage(int $id, string $sender, string $email_back, string $content, string $sending_date, int $read): void

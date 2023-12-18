@@ -38,7 +38,12 @@ $projects = $project->getProjects();
     <?php include "components/navadmin.php"; ?>
 
     <main>
-        <h1>Projects</h1>
+        <div class="top">
+            <h2>Projects</h2>
+            <object>
+                <a href="/newprojectadmin" class="new_project not-selectable">New Project <img src="/assets/plus.svg"></a>
+            </object>
+        </div>
 
         <div class="container">
             <div class="projects">
@@ -46,7 +51,7 @@ $projects = $project->getProjects();
                     <p>Aucun projet</p>
                 <?php endif; ?>
                 <?php foreach ($projects as $project) : ?>
-                    <a href="/editprojectadmin/<?php echo $project["id_project"]; ?>">
+                    <a href="/modifyprojectinfoadmin/<?php echo $project["id_project"]; ?>">
                         <div class="project">
                             <h3><?php echo $project["titre"]; ?></h3>
                             <div class="category_container">
@@ -57,7 +62,7 @@ $projects = $project->getProjects();
 
                                 if (!empty($categories)) {
                                     foreach ($categories as $categorie) : ?>
-                                        <div class="category">
+                                        <div class="category not-selectable">
                                             <img class="logo_category" src="<?php echo $categorie["logo"]; ?>" alt="<?php echo $categorie["nom"]; ?>">
                                             <p><?php echo $categorie["nom"]; ?></p>
                                             <object>
@@ -78,7 +83,7 @@ $projects = $project->getProjects();
                             <p class="description"><?php echo $project["description"]; ?></p>
                             <p><?php echo $project["publi_date"]; ?></p>
 
-                            <object class="delete_proj">
+                            <object class="delete_proj not-selectable">
                                 <span class="delete_but" id="<?php echo $project["id_project"] ?>">Delete Project</span>
                             </object>
 
@@ -93,10 +98,7 @@ $projects = $project->getProjects();
     <script>
         let delete_but = document.getElementsByClassName("delete_but");
 
-        console.log(delete_but);
-
         Array.prototype.forEach.call(delete_but, function(element) {
-            console.log(element);
             element.addEventListener("click", function() {
                 event.preventDefault();
                 let id_project = element.id;

@@ -79,3 +79,54 @@
 .active {
     background-color: #3b3b3b8f;
 }
+
+.dropnav{
+    margin-left: 50vh;
+}
+
+.dropbtn{
+    font-size: 1.25rem;
+
+    width: fit-content;
+    height: fit-content;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #0000000c;
+    border-radius: 10px;
+
+    margin: 0.5rem;
+    padding: 0.5rem;
+
+    cursor: pointer;
+    position: relative;
+}
+
+.dropbtn:hover{
+    background-color: #0000001a;
+}
+
+.dropbtn.active{
+    background-color: #3b3b3b8f;
+}
+
+#navcontent{
+    display: none;
+    justify-content:space-around;
+    right: 0;
+    width: 96vw;
+    margin: 0 2vw;
+    top: calc(50px + 2rem);
+    position: absolute;
+    background-color: #eeeeee;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.421);
+    border-radius: 10px;
+    z-index: 3;
+    transition: all 0.5s ease;
+}
+
+
+
+
