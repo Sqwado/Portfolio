@@ -40,6 +40,8 @@ $code = $project["content"];
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
     <link rel="stylesheet" href="/css/newprojectadmin.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -48,33 +50,36 @@ $code = $project["content"];
 
 <body>
     <?php include "components/navadmin.php"; ?>
-    <div class="top">
-        <h3>Modify Project</h3>
-        <a href="/modifyprojectinfoadmin/<?php echo $id; ?>" class="change_content not-selectable">Modify info</a>
-    </div>
     <main>
-        <div class="code">
-            <h3>Code</h3>
+        <div class="top">
+            <h3>Modify Project</h3>
+            <a href="/modifyprojectinfoadmin/<?php echo $id; ?>" class="change_content not-selectable">Modify info</a>
+        </div>
 
-            <form action=<?php echo $_SERVER["REQUEST_URI"] . "/save"; ?> method="post">
-                <pre>
+        <div class="content">
+            <div class="code">
+                <h3>Code</h3>
+
+                <form action=<?php echo $_SERVER["REQUEST_URI"] . "/save"; ?> method="post">
+                    <pre>
                     <code class="language-html" contenteditable="true" spellcheck='false'><?php echo htmlspecialchars($code); ?></code>
                  </pre>
 
-                <input type="hidden" name="content" id="code_value" value="<?php echo htmlspecialchars($code); ?>">
+                    <input type="hidden" name="content" id="code_value" value="<?php echo htmlspecialchars($code); ?>">
 
-                <input type="submit" value="Envoyer">
-            </form>
+                    <input type="submit" value="Envoyer">
+                </form>
 
-            <button id="add_img">Ajouter une image</button>
-            <button id="clean_code">Beautify</button>
+                <button id="add_img">Ajouter une image</button>
+                <button id="clean_code">Beautify</button>
 
-        </div>
+            </div>
 
-        <div class="show">
-            <h3>Preview</h3>
-            <div class="preview">
-                <?php echo $code; ?>
+            <div class="show">
+                <h3>Preview</h3>
+                <div class="preview">
+                    <?php echo $code; ?>
+                </div>
             </div>
         </div>
     </main>

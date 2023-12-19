@@ -1,18 +1,20 @@
 .TopBar {
-    width: calc(100vw - 2rem - 5px);
+    width: calc(100vw - 2vw);
     height: 50px;
 
-    padding: 1rem;
+    padding: 2vh 1vw 2vh 1vw;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     background-color: #0000000c;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .logout {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 600;
 
     display: flex;
@@ -24,15 +26,23 @@
     border-radius: 10px;
 
     cursor: pointer;
-    width: 100px;
-    height: 50px;
+    width: fit-content;
+    height: fit-content;
     margin: 0 0.5rem;
+    padding: 0.5rem;
     z-index: 1;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .logout:hover {
     background-color: #f30202;
+}
+
+.logout img {
+    height: 2rem;
+    object-fit: contain;
+    margin: 0.1rem;
 }
 
 .nav {
@@ -80,10 +90,6 @@
     background-color: #3b3b3b8f;
 }
 
-.dropnav{
-    margin-left: 50vh;
-}
-
 .dropbtn{
     font-size: 1.25rem;
 
@@ -97,7 +103,6 @@
     background-color: #0000000c;
     border-radius: 10px;
 
-    margin: 0.5rem;
     padding: 0.5rem;
 
     cursor: pointer;
@@ -125,8 +130,13 @@
     border-radius: 10px;
     z-index: 3;
     transition: all 0.5s ease;
+    overflow-x: scroll;
 }
 
-
+@media screen and (max-width: 740px){ 
+    #navcontent{
+        justify-content: start;
+    }
+ }
 
 

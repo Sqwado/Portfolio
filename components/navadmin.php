@@ -16,9 +16,7 @@
                 <a href="/competenceadmin" id="competenceadmin" class="redirect">Competences</a>
             </div>
         </div>
-        <object>
-            <a href="/logoutadmin" class="logout not-selectable">Log Out</a>
-        </object>
+        <a href="/logoutadmin" class="logout not-selectable"><img src="/assets/logout.svg" ></a>
     </div>
 
     <script>
@@ -27,7 +25,7 @@
         } catch (e) {
             console.log(e);
         }
-        
+
         const navdropbtn = document.getElementById("navdropbtn");
         const navcontent = document.getElementById("navcontent");
 
@@ -35,8 +33,6 @@
             navcontent.style.display = navcontent.style.display == "flex" ? "none" : "flex";
             navdropbtn.classList.toggle("active");
         });
-
-
     </script>
 
 </header>

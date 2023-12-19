@@ -38,6 +38,8 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
     <link rel="stylesheet" href="/css/newprojectadmin.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -46,45 +48,47 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
 
 <body>
     <?php include "components/navadmin.php"; ?>
-    <div class="top">
-        <h2>Modify Project</h2>
-        <a href="/modifyprojectcontentadmin/<?php echo $id; ?>" class="change_content not-selectable">Modify content</a>
-    </div>
     <main>
-
-        <div class="show">
-            <form action=<?php echo $_SERVER["REQUEST_URI"] . "/save"; ?> method="post">
-                <div class="container">
-                    <div class="project">
-                        <h3>Informations</h3>
-                        <div class="input_wrapper">
-                            <label for="titre">Titre</label>
-                            <input type="text" name="titre" id="titre" value="<?php echo $project["titre"]; ?>">
-                        </div>
-                        <div class="input_wrapper">
-                            <label for="main_img">Image principale</label>
-                            <input type="text" name="main_img" id="main_img" value="<?php echo $project["main_img"]; ?>">
-                        </div>
-                        <div class="input_wrapper">
-                            <label for="description">Description</label>
-                            <textarea name="description" id="description" cols="30" rows="10"><?php echo $project["description"]; ?></textarea>
-                        </div>
-                        <div class="input_wrapper">
-                            <label for="publi_date">Date de publication</label>
-                            <input type="date" name="publi_date" id="publi_date" value="<?php echo $project["publi_date"]; ?>">
-                        </div>
-                    </div>
-                    <input type="submit" value="Save">
-                </div>
-            </form>
+        <div class="top">
+            <h2>Modify Project</h2>
+            <a href="/modifyprojectcontentadmin/<?php echo $id; ?>" class="change_content not-selectable">Modify content</a>
         </div>
-        <div class="show">
-            <h3>Preview</h3>
-            <div class="project">
-                <h3 id="tire_show"><?php echo $project["titre"]; ?></h3>
-                <img id="main_img_show" class="main_img_project" src="<?php echo $project["main_img"]; ?>" alt="">
-                <p id="description_show"><?php echo $project["description"]; ?></p>
-                <p id="publi_date_show"><?php echo $project["publi_date"]; ?></p>
+
+        <div class="content">
+            <div class="show">
+                <form action=<?php echo $_SERVER["REQUEST_URI"] . "/save"; ?> method="post">
+                    <div class="container">
+                        <div class="project">
+                            <h3>Informations</h3>
+                            <div class="input_wrapper">
+                                <label for="titre">Titre</label>
+                                <input type="text" name="titre" id="titre" value="<?php echo $project["titre"]; ?>">
+                            </div>
+                            <div class="input_wrapper">
+                                <label for="main_img">Image principale</label>
+                                <input type="text" name="main_img" id="main_img" value="<?php echo $project["main_img"]; ?>">
+                            </div>
+                            <div class="input_wrapper">
+                                <label for="description">Description</label>
+                                <textarea name="description" id="description" cols="30" rows="10"><?php echo $project["description"]; ?></textarea>
+                            </div>
+                            <div class="input_wrapper">
+                                <label for="publi_date">Date de publication</label>
+                                <input type="date" name="publi_date" id="publi_date" value="<?php echo $project["publi_date"]; ?>">
+                            </div>
+                        </div>
+                        <input type="submit" value="Save">
+                    </div>
+                </form>
+            </div>
+            <div class="show">
+                <h3>Preview</h3>
+                <div class="project">
+                    <h3 id="tire_show"><?php echo $project["titre"]; ?></h3>
+                    <img id="main_img_show" class="main_img_project" src="<?php echo $project["main_img"]; ?>" alt="">
+                    <p id="description_show"><?php echo $project["description"]; ?></p>
+                    <p id="publi_date_show"><?php echo $project["publi_date"]; ?></p>
+                </div>
             </div>
         </div>
 

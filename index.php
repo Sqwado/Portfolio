@@ -6,11 +6,23 @@ spl_autoload_register(function ($class) {
     require __DIR__ . "/src/$class.php";
 });
 
-require "DB_Credentials.php";
+# use the following line to switch between local and remote database
+$db_local = false;
+
+if ($db_local) {
+    require "DB_Credentials_local.php";
+} else {
+    require "DB_Credentials.php";
+}
 
 $parts = explode("/", $_SERVER["REQUEST_URI"]);
 
 // gestion des redirections
+
+if ($parts[1] == "api") {
+    include("api_redirect.php");
+    exit();
+}
 
 if ($parts[1] == "home") {
     include("page/home.php");
@@ -26,13 +38,13 @@ if ($parts[1] == "home") {
     include("page/homeadmin.php");
 } elseif ($parts[1] == "projectadmin") {
     include("page/projectadmin.php");
-} elseif ($parts[1] == "newprojectadmin"){
+} elseif ($parts[1] == "newprojectadmin") {
     include("page/newprojectadmin.php");
-} elseif ($parts[1] == "modifyprojectinfoadmin"){
+} elseif ($parts[1] == "modifyprojectinfoadmin") {
     include("page/modifyprojectinfoadmin.php");
-} elseif ($parts[1] == "modifyprojectcontentadmin"){
+} elseif ($parts[1] == "modifyprojectcontentadmin") {
     include("page/modifyprojectcontentadmin.php");
-} elseif ($parts[1] == "messageadmin"){
+} elseif ($parts[1] == "messageadmin") {
     include("page/messageadmin.php");
 } else {
     header("Location: /home");

@@ -9,13 +9,6 @@
     z-index: 1;
 }
 
-.top{
-    width: 100%;
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-}
-
 .new_project {
     width: fit-content;
     height: fit-content;
@@ -54,11 +47,14 @@
 }
 
 .project {
-    width: 380px;
-    height: 500px;
+    width: 300px;
+    height: fit-content;
 
-    padding: 1rem;
-    margin: 1rem;
+    min-width: 300px;
+    min-height: 450px;
+
+    padding: 0.5rem;
+    margin: 0.5rem;
     font-size: 1.25rem;
     font-weight: 500;
     line-height: 1.2;
@@ -97,6 +93,8 @@
 
     background-color: #0000000c;
     border-radius: 10px;
+
+    margin-bottom: 0.5rem;
 }
 
 .main_img_project {
@@ -171,9 +169,7 @@
     border-radius: 10px;
 
     padding-left: 0.5rem;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
-
+    margin-bottom: 0.5rem;
     overflow-y: scroll;
 }
 
@@ -186,6 +182,8 @@
     border-radius: 10px;
 
     padding: 0.5rem;
+
+    margin-top: 0.5rem;
 
 }
 

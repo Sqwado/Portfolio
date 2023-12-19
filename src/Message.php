@@ -27,7 +27,7 @@ class Message
 
     public function getMessagesUnread(): array
     {
-        $this->database->presql("SELECT * FROM Message WHERE `read` = 0 ORDER BY sending_date DESC");
+        $this->database->presql("SELECT * FROM Message WHERE readed = 0 ORDER BY sending_date DESC");
         $this->database->execute();
 
         return $this->database->data;
@@ -35,7 +35,7 @@ class Message
 
     public function getMessagesRead(): array
     {
-        $this->database->presql("SELECT * FROM Message WHERE `read` = 1 ORDER BY sending_date DESC");
+        $this->database->presql("SELECT * FROM Message WHERE readed = 1 ORDER BY sending_date DESC");
         $this->database->execute();
 
         return $this->database->data;

@@ -23,7 +23,7 @@ if (isset($parts[2]) && !empty($parts[2])) {
                 $message->createMessage($_POST["email"], $_POST["content"]);
                 $_SESSION["message"] = "Message envoyé";
             } catch (Exception $e) {
-                $_SESSION["message"] ="Erreur lors de l'envoi du message";
+                $_SESSION["message"] = "Erreur lors de l'envoi du message";
             }
             header("Location: /home");
             exit();
@@ -50,6 +50,8 @@ $articles = $article->getArticles();
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="/css/home.css">
 </head>

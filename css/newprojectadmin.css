@@ -1,11 +1,7 @@
 @import url(/css/style.css);
 
-main {
-    display: flex;
-}
-
 .code {
-    width: 49vw;
+    width: 48vw;
     margin: 0 0.5vw;
 }
 
@@ -18,7 +14,7 @@ code {
 }
 
 .show {
-    width: 49vw;
+    width: 48vw;
     margin: 0 0.5vw;
 }
 
