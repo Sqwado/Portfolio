@@ -15,7 +15,7 @@ $projects = new Project($database);
 
 if (isset($parts[2]) && is_numeric($parts[2])) {
     $id = (int) $parts[2];
-    $project = $project->getProject($id);
+    $project = $projects->getProject($id)[0];
     if (empty($project)) {
         header("Location: /projectadmin");
         exit();
@@ -48,6 +48,10 @@ $code = $project["content"];
 
 <body>
     <?php include "components/navadmin.php"; ?>
+    <div class="top">
+        <h3>Modify Project</h3>
+        <a href="/modifyprojectinfoadmin/<?php echo $id; ?>" class="change_content not-selectable">Modify info</a>
+    </div>
     <main>
         <div class="code">
             <h3>Code</h3>
@@ -57,15 +61,13 @@ $code = $project["content"];
                     <code class="language-html" contenteditable="true" spellcheck='false'><?php echo htmlspecialchars($code); ?></code>
                  </pre>
 
-                <input type="hidden" name="code" id="code_value" value="<?php echo htmlspecialchars($code); ?>">
+                <input type="hidden" name="content" id="code_value" value="<?php echo htmlspecialchars($code); ?>">
 
                 <input type="submit" value="Envoyer">
             </form>
 
             <button id="add_img">Ajouter une image</button>
             <button id="clean_code">Beautify</button>
-
-            <button id="change_info>">Changer les informations</button>
 
         </div>
 

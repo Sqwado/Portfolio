@@ -32,6 +32,8 @@ if ($parts[1] == "home") {
     include("page/modifyprojectinfoadmin.php");
 } elseif ($parts[1] == "modifyprojectcontentadmin"){
     include("page/modifyprojectcontentadmin.php");
+} elseif ($parts[1] == "messageadmin"){
+    include("page/messageadmin.php");
 } else {
     header("Location: /home");
 }

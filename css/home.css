@@ -9,8 +9,31 @@
     z-index: 1;
 }
 
+.message {
+    z-index: 2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-image: linear-gradient(120deg, rgb(103, 51, 155) 0%, rgb(27, 108, 195)100%);
+    color: #000000;
+
+    position: fixed;
+    top: 2%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+
+    padding: 1rem;
+
+    border-radius: 10px;
+
+    transition: 0.3s;
+
+}
+
 .projects {
-    width: 100vw;
+    width: calc(100vw - 5px);
 
     display: flex;
     align-items: center;
@@ -142,4 +165,18 @@
     padding-bottom: 0.2rem;
 
     overflow-y: scroll;
+}
+
+.contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 1rem;
+
+}
+
+.contact > *{
+    margin: 0.2rem;
 }

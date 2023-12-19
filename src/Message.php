@@ -1,6 +1,7 @@
 <?php
 
-class Message{
+class Message
+{
 
     public function __construct(
         public Database $database
@@ -40,29 +41,27 @@ class Message{
         return $this->database->data;
     }
 
-    public function createMessage(string $sender, string $email_back, string $content): void
+    public function createMessage(string $email, string $content): void
     {
-        $this->database->presql("INSERT INTO Message (sender, email_back, content, sending_date, read) VALUES (:sender, :email_back, :content, Now(), 0)");
-        $this->database->bindParam(":sender", $sender);
-        $this->database->bindParam(":email_back", $email_back);
+        $this->database->presql("INSERT INTO Message (email, content, sending_date, readed) VALUES (:email, :content, Now(), 0)");
+        $this->database->bindParam(":email", $email);
         $this->database->bindParam(":content", $content);
 
         try {
             $this->database->execute();
         } catch (PDOException $e) {
-           throw new Exception("Erreur lors de la création du message");
+            throw new Exception("Erreur lors de la création du message");
         }
     }
 
-    public function updateMessage(int $id, string $sender, string $email_back, string $content, string $sending_date, int $read): void
+    public function updateMessage(int $id, string $email, string $content, string $sending_date, int $readed): void
     {
-        $this->database->presql("UPDATE Message SET sender = :sender, email_back = :email_back, content = :content, sending_date = :sending_date, `read` = :read WHERE id_message = :id_message");
+        $this->database->presql("UPDATE Message SET email = :email, content = :content, sending_date = :sending_date, readed = :readed WHERE id_message = :id_message");
         $this->database->bindParam(":id_message", $id);
-        $this->database->bindParam(":sender", $sender);
-        $this->database->bindParam(":email_back", $email_back);
+        $this->database->bindParam(":email", $email);
         $this->database->bindParam(":content", $content);
         $this->database->bindParam(":sending_date", $sending_date);
-        $this->database->bindParam(":read", $read);
+        $this->database->bindParam(":readeds", $readed);
 
         $this->database->execute();
     }
@@ -76,9 +75,15 @@ class Message{
 
     public function readMessage(int $id): void
     {
-        $this->database->presql("UPDATE Message SET `read` = 1 WHERE id_message = :id_message");
+        $this->database->presql("UPDATE Message SET readed = 1 WHERE id_message = :id_message");
         $this->database->bindParam(":id_message", $id);
         $this->database->execute();
     }
 
+    public function unreadMessage(int $id): void
+    {
+        $this->database->presql("UPDATE Message SET readed = 0 WHERE id_message = :id_message");
+        $this->database->bindParam(":id_message", $id);
+        $this->database->execute();
+    }
 }

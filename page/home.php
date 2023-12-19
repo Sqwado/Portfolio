@@ -1,14 +1,39 @@
 <?php
 
+session_start();
+
 $request_uri = explode(".", $_SERVER["REQUEST_URI"]);
 
 $is_file = end($request_uri);
 
-if($is_file == "php" || $is_file == "html") {
+if ($is_file == "php" || $is_file == "html") {
     header("Location: /home");
 }
 
+$parts = explode("/", $_SERVER["REQUEST_URI"]);
+
 $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWORD);
+
+if (isset($parts[2]) && !empty($parts[2])) {
+    if ($parts[2] == "newmessage") {
+        if (isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["content"]) && !empty($_POST["content"])) {
+            $message = new Message($database);
+
+            try {
+                $message->createMessage($_POST["email"], $_POST["content"]);
+                $_SESSION["message"] = "Message envoyé";
+            } catch (Exception $e) {
+                $_SESSION["message"] ="Erreur lors de l'envoi du message";
+            }
+            header("Location: /home");
+            exit();
+        } else {
+            $_SESSION["message"] = "Erreur lors de l'envoi du message";
+            header("Location: /home");
+            exit();
+        }
+    }
+}
 
 $project = new Project($database);
 
@@ -32,6 +57,14 @@ $articles = $article->getArticles();
 <body>
     <h1>Home</h1>
 
+    <?php if (isset($_SESSION["message"]) && !empty($_SESSION["message"])) : ?>
+        <div class="message">
+            <h3><?php echo $_SESSION["message"]; ?></h3>
+        </div>
+    <?php
+        unset($_SESSION["message"]);
+    endif; ?>
+
     <div class="container">
         <h2>Projects</h2>
         <div class="projects">
@@ -51,7 +84,7 @@ $articles = $article->getArticles();
                                         <img class="logo_category" src="<?php echo $categorie["logo"]; ?>" alt="<?php echo $categorie["nom"]; ?>">
                                         <p><?php echo $categorie["nom"]; ?></p>
                                         <object>
-                                            <a href="/home/<?php echo $categorie["id_categorie"]; ?>">
+                                            <a href="/categorie/<?php echo $categorie["id_categorie"]; ?>">
                                                 <span class="link"></span>
                                             </a>
                                         </object>
@@ -75,10 +108,31 @@ $articles = $article->getArticles();
 
         </div>
 
+        <h2>Articles</h2>
         <div class="articles">
-            <h2>Articles</h2>
+
 
         </div>
+
+        <h3>Me contacter</h3>
+        <div class="container">
+            <form class="contact" action="<?php echo $_SERVER["REQUEST_URI"]; ?>/newmessage" method="post">
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="content" placeholder="Message" required cols="40" rows="7"></textarea>
+                <input type="submit" value="Envoyer">
+            </form>
+        </div>
+
     </div>
+
+    <script>
+        const message = document.querySelector(".message");
+
+        if (message) {
+            setTimeout(() => {
+                message.style.display = "none";
+            }, 5000);
+        }
+    </script>
 
 </body>
