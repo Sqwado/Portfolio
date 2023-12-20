@@ -13,6 +13,13 @@ $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWOR
 
 $message = new Message($database);
 
+if (isset($parts[2]) && is_numeric($parts[2]) && isset($parts[3]) && $parts[3] == "read") {
+    $id = (int) $parts[2];
+    $message->readMessage($id);
+    header("Location: /messageadmin");
+    exit();
+}
+
 $messages = $message->getMessages();
 
 $unread = [];
@@ -83,10 +90,11 @@ foreach ($messages as $message) {
                         <p class="message-date"><?= $message["sending_date"] ?></p>
                         <p class="message-read"><?php if ($message["readed"]  == 0) echo "non";
                                                 else echo "oui"; ?></p>
-
                         <p class="message-content"><?= $message["content"] ?></p>
                         <div class="message-action">
-                            <a href="/messageadmin/<?= $message["id_message"] ?>/read">Lire</a>
+                            <?php if ($message["readed"] == 0) { ?>
+                                <a href="/messageadmin/<?= $message["id_message"] ?>/read">Lire</a>
+                            <?php } ?>
                             <a href="/messageadmin/<?= $message["id_message"] ?>/delete">Supprimer</a>
                         </div>
                     </div>
@@ -159,8 +167,12 @@ foreach ($messages as $message) {
 
                             <p class="message-content">${message.content}</p>
                             <div class="message-action">
-                                <a href="/messageadmin/${message.id_message}/read">Lire</a>
-                                <a href="/messageadmin/${message.id_message}/delete">Supprimer</a>
+                                <a href="/messageadmin/${message.id_message}/read">Lire</a>`
+            if (message.readed == 0) {
+                messages_conteneur.innerHTML += `
+                                <a href="/messageadmin/${message.id_message}/delete">Supprimer</a>`
+            }
+            messages_conteneur.innerHTML += `
                             </div>
                         </div>
                     `;
