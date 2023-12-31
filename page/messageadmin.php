@@ -159,7 +159,8 @@ foreach ($messages as $message) {
         }
 
         function addmessage(message) {
-            messages_conteneur.innerHTML += `
+            let message_content = ""
+            message_content += `
                         <div class="message">
                             <p class="message-email">${message.email}</p>
                             <p class="message-date">${message.sending_date}</p>
@@ -169,13 +170,14 @@ foreach ($messages as $message) {
                             <div class="message-action">
                                 <a href="/messageadmin/${message.id_message}/read">Lire</a>`
             if (message.readed == 0) {
-                messages_conteneur.innerHTML += `
+                message_content += `
                                 <a href="/messageadmin/${message.id_message}/delete">Supprimer</a>`
             }
-            messages_conteneur.innerHTML += `
+            message_content += `
                             </div>
                         </div>
                     `;
+            messages_conteneur.innerHTML += message_content;
         }
 
         async function fetchmessage() {

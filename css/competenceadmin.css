@@ -1,0 +1,8 @@
+@import url(/css/style.css);
+
+.main_img {
+    height: 150px;
+    width: 250px;
+
+    object-fit: contain;
+}

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+error_log(print_r("test log", TRUE));
+
 spl_autoload_register(function ($class) {
     require __DIR__ . "/src/$class.php";
 });
@@ -19,33 +21,46 @@ $parts = explode("/", $_SERVER["REQUEST_URI"]);
 
 // gestion des redirections
 
-if ($parts[1] == "api") {
-    include("api_redirect.php");
-    exit();
-}
-
-if ($parts[1] == "home") {
-    include("page/home.php");
-} elseif ($parts[1] == "project") {
-    include("page/project.php");
-} elseif ($parts[1] == "article") {
-    include("page/article.php");
-} elseif ($parts[1] == "loginadmin") {
-    include("page/loginadmin.php");
-} elseif ($parts[1] == "logoutadmin") {
-    include("page/logoutadmin.php");
-} elseif ($parts[1] == "homeadmin") {
-    include("page/homeadmin.php");
-} elseif ($parts[1] == "projectadmin") {
-    include("page/projectadmin.php");
-} elseif ($parts[1] == "newprojectadmin") {
-    include("page/newprojectadmin.php");
-} elseif ($parts[1] == "modifyprojectinfoadmin") {
-    include("page/modifyprojectinfoadmin.php");
-} elseif ($parts[1] == "modifyprojectcontentadmin") {
-    include("page/modifyprojectcontentadmin.php");
-} elseif ($parts[1] == "messageadmin") {
-    include("page/messageadmin.php");
-} else {
-    header("Location: /home");
+switch ($parts[1]) {
+    case "api":
+        include("api_redirect.php");
+        break;
+    case "home":
+        include("page/home.php");
+        break;
+    case "project":
+        include("page/project.php");
+        break;
+    case "article":
+        include("page/article.php");
+        break;
+    case "loginadmin":
+        include("page/loginadmin.php");
+        break;
+    case "logoutadmin":
+        include("page/logoutadmin.php");
+        break;
+    case "homeadmin":
+        include("page/homeadmin.php");
+        break;
+    case "projectadmin":
+        include("page/projectadmin.php");
+        break;
+    case "newprojectadmin":
+        include("page/newprojectadmin.php");
+        break;
+    case "modifyprojectinfoadmin":
+        include("page/modifyprojectinfoadmin.php");
+        break;
+    case "modifyprojectcontentadmin":
+        include("page/modifyprojectcontentadmin.php");
+        break;
+    case "messageadmin":
+        include("page/messageadmin.php");
+        break;
+    case "competenceadmin":
+        include("page/competenceadmin.php");
+        break;
+    default:
+        header("Location: /home");
 }

@@ -14,25 +14,33 @@ $parts = explode("/", $_SERVER["REQUEST_URI"]);
 
 $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWORD);
 
-if (isset($parts[2]) && !empty($parts[2])) {
-    if ($parts[2] == "newmessage") {
-        if (isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["content"]) && !empty($_POST["content"])) {
-            $message = new Message($database);
+if (isset($parts[2]) && !empty($parts[2]) && $parts[2] == "newmessage") {
+    $token = htmlspecialchars($_POST['token']);
 
-            try {
-                $message->createMessage($_POST["email"], $_POST["content"]);
-                $_SESSION["message"] = "Message envoyé";
-            } catch (Exception $e) {
-                $_SESSION["message"] = "Erreur lors de l'envoi du message";
-            }
-            header("Location: /home");
-            exit();
-        } else {
-            $_SESSION["message"] = "Erreur lors de l'envoi du message";
-            header("Location: /home");
-            exit();
-        }
+    if (!isset($_SESSION['token']) || $token != $_SESSION['token']) {
+        $_SESSION["message"] = "Erreur lors de l'envoi du message";
+        header("Location: /home");
+        exit();
     }
+
+    if (isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["content"]) && !empty($_POST["content"])) {
+        $message = new Message($database);
+
+        try {
+            $message->createMessage($_POST["email"], $_POST["content"]);
+            $_SESSION["message"] = "Message envoyé";
+        } catch (Exception $e) {
+            $_SESSION["message"] = "Erreur lors de l'envoi du message";
+        }
+        header("Location: /home");
+        exit();
+    } else {
+        $_SESSION["message"] = "Erreur lors de l'envoi du message";
+        header("Location: /home");
+        exit();
+    }
+} else {
+    $_SESSION['token'] = bin2hex(random_bytes(35));
 }
 
 $project = new Project($database);
@@ -118,9 +126,10 @@ $articles = $article->getArticles();
 
         <h3>Me contacter</h3>
         <div class="container">
-            <form class="contact" action="<?php echo $_SERVER["REQUEST_URI"]; ?>/newmessage" method="post">
+            <form class="contact" action="/home/newmessage" method="post">
                 <input type="email" name="email" placeholder="Email" required>
                 <textarea name="content" placeholder="Message" required cols="40" rows="7"></textarea>
+                <input type="hidden" name="token" value="<?= $_SESSION['token'] ?? '' ?>">
                 <input type="submit" value="Envoyer">
             </form>
         </div>
