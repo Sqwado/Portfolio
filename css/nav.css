@@ -1,0 +1,73 @@
+.dropnav{
+    position: absolute;
+    right: 2vw;
+}
+
+.redirect {
+    font-size: 1.25rem;
+
+    width: fit-content;
+    height: fit-content;
+
+    background-color: #0000002e;
+    border-radius: 10px;
+
+    margin: 0.5rem;
+    padding: 0.5rem;
+
+    cursor: pointer;
+    position: relative;
+}
+
+.redirect:hover {
+    background-color: #0000001a;
+}
+
+.active {
+    background-color: #3b3b3b8f;
+}
+
+.dropbtn{
+    font-size: 1.25rem;
+
+    width: fit-content;
+    height: fit-content;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #0000003e;
+    border-radius: 10px;
+
+    padding: 0.5rem;
+
+    cursor: pointer;
+    position: relative;
+}
+
+.dropbtn:hover{
+    background-color: #0000001a;
+}
+
+.dropbtn.active{
+    background-color: #3b3b3b8f;
+}
+
+#navcontent{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    right: 0;
+    width: fit-content;
+    top: 4.5rem;
+    position: absolute;
+    background-color: #fafafab1;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.421);
+    border-radius: 10px;
+    z-index: 3;
+    transition: all 0.5s ease;
+}
+
+
+

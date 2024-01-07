@@ -32,23 +32,151 @@
 
 }
 
-.projects {
-    width: calc(100vw - 5px);
+.presentation{
+    background-color: #0000005a;
+    border-radius: 10px;
+    margin: 0.5rem;
+}
 
+.main_info{
     display: flex;
+    justify-content: space-around;
     align-items: center;
+    flex-direction:row;
+
+}
+
+@media screen and (max-width: 600px) {
+    .main_info {
+        flex-direction: column;
+    }
+    
+}
+
+.profil_img {
+    height: 500px;
+    width: 300px;
+
+    object-fit: cover;
+
+    border-radius: 30px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+
+    margin: 1rem;
+    margin-right: 0.5rem;
+}
+
+.perso_info {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    margin: 1rem;
+    margin-left: 0.5rem;
+    padding: 0.5rem;
+
+    max-width: 500px;
+
+    background-color: #f8f8f812;
+    border-radius: 10px;
+}
+
+.info_title{
+    margin: 0;
+    font-weight: 800;
+}
+
+.social{
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1rem;
+    padding-top: 0;
+}
+
+.social>*{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.logo_social {
+    height: 50px;
+    width: 50px;
+
+    object-fit: contain;
+
+}
+
+.competences{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 
     overflow-y: scroll;
+    scroll-snap-type: x mandatory;
+
+    background-color: #0000005a;
+    border-radius: 10px;
+    margin: 0.5rem;
+
+    max-height: 602px;
+}
+
+.competence{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 0.5rem;
+
+    scroll-snap-align: center;
+
+    background-color: #30303035;
+    border-radius: 10px;
+
+    width: 200px;
+    min-width: 200px;
+    height: 200px;
+
+}
+
+.top_competence{
+    display: flex;
+    align-items: center;
+}
+
+.logo_competence {
+    height: 50px;
+    width: 50px;
+
+    object-fit: contain;
+
+    margin: 0.5rem;
+}
+
+.projects {
+    display: flex;
+
+    overflow-x: scroll;
+
+    scroll-snap-type: x mandatory;
+
+    background-color: #0000005a;
+    border-radius: 10px;
+    margin: 0.5rem;
 
 }
 
 .project {
 
-    width: 380px;
+    width: 320px;
     height: 500px;
 
-    padding: 1rem;
-    margin: 1rem;
     font-size: 1.25rem;
     font-weight: 500;
     line-height: 1.2;
@@ -59,7 +187,14 @@
     align-items: center;
     flex-direction: column;
 
-    background-color: #0000000c;
+    scroll-snap-align: center;
+
+    margin: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 0.5rem;
+
+    background-color: #34343426;
     border-radius: 10px;
 }
 
@@ -107,6 +242,7 @@
     border-radius: 10px;
 
     overflow-x: scroll;
+    scroll-snap-type: x mandatory;
 
     margin-bottom: 0.5rem;
 }
@@ -129,6 +265,8 @@
 
     background-color: #0000000c;
     border-radius: 10px;
+
+    scroll-snap-align: center;
 
     margin: 0 0.5rem;
     padding: 0 0.5rem;
@@ -167,16 +305,73 @@
     overflow-y: scroll;
 }
 
-.contact {
+.contact{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    flex-direction: row;
+
+    background-color: #0000005a;
+    border-radius: 10px;
+    margin: 0.5rem;
+    padding: 0.5rem;
+}
+
+.contact_info{
+    display: flex;
     flex-direction: column;
 
-    padding: 1rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    margin: 0.5rem;
 
+    background-color: #30303035;
+    border-radius: 10px;
 }
 
-.contact > *{
+.contact_form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    padding: 0.5rem;
+    margin: 0.5rem;
+
+    background-color: #30303035;
+    border-radius: 10px;
+}
+
+.contact_form > *{
     margin: 0.2rem;
 }
+
+.body_switch{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.body_switch > *{
+    width: 50%;
+}
+
+@media screen and (max-width: 1040px) {
+    .body_switch {
+        flex-direction: column;
+    }
+
+    .body_switch > *{
+        width: 100%;
+    }
+
+    .contact{
+        flex-direction: column;
+    }
+
+    .competences{
+        flex-wrap: nowrap;
+    }
+    
+}
+
+
