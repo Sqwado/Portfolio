@@ -1,8 +1,87 @@
 @import url(/css/style.css);
 
-.main_img {
-    height: 150px;
-    width: 250px;
+.competences{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    background-color: #0000005a;
+    border-radius: 10px;
+    margin: 0.5rem;
+
+    width: 100%;
+
+}
+
+.competence{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 0.5rem;
+
+    scroll-snap-align: center;
+
+    background-color: #30303035;
+    border-radius: 10px;
+
+    width: 300px;
+    min-width: 200px;
+    height: 200px;
+
+}
+
+.top_competence{
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.logo_competence {
+    height: 75px;
+    width: 75px;
 
     object-fit: contain;
+}
+
+.description{
+    height: 100%;
+}
+
+.new{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.back{
+    position: fixed;
+
+    top : calc(50px + 4vh + 1rem);
+    right: 1rem;
+
+}
+
+.delete_comp{
+    z-index: 2;
+    object-fit: contain;
+    cursor: pointer;
+
+    border-radius: 10px;
+
+    padding: 0.5rem;
+
+    margin: 0.5rem;
+
+}
+
+.delete_but{
+    color: #000000;
 }

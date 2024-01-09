@@ -20,6 +20,13 @@ if (isset($parts[2]) && is_numeric($parts[2]) && isset($parts[3]) && $parts[3] =
     exit();
 }
 
+if (isset($parts[2]) && is_numeric($parts[2]) && isset($parts[3]) && $parts[3] == "delete") {
+    $id = (int) $parts[2];
+    $message->deleteMessage($id);
+    header("Location: /messageadmin");
+    exit();
+}
+
 $messages = $message->getMessages();
 
 $unread = [];
@@ -29,6 +36,8 @@ foreach ($messages as $message) {
         $unread[] = $message;
     }
 }
+
+$today = new DateTime();
 
 ?>
 
@@ -58,18 +67,20 @@ foreach ($messages as $message) {
             <div class="filter">
 
                 <div>
+                    <p>Filtre :</p>
+                </div>
+
+                <div>
                     <label for="email">Email :</label>
                     <input type="text" id="email" placeholder="Rechercher par email">
                 </div>
-
-                <br>
 
                 <div>
                     <label for="read">A lire :</label>
                     <input type="checkbox" id="read">
                 </div>
 
-                <div>
+                <div class="filter_reload">
                     <button id="reload">Reload</button>
                 </div>
 
@@ -104,6 +115,8 @@ foreach ($messages as $message) {
     </main>
 
     <script>
+        console.log("<?= $api_token ?>");
+
         const messages_conteneur = document.getElementById("messages_conteneur");
         const email = document.getElementById("email");
         const read = document.getElementById("read");
@@ -159,21 +172,20 @@ foreach ($messages as $message) {
         }
 
         function addmessage(message) {
-            let message_content = ""
-            message_content += `
+            let message_content = `
                         <div class="message">
                             <p class="message-email">${message.email}</p>
                             <p class="message-date">${message.sending_date}</p>
                             <p class="message-read">${message.readed == 0 ? "non" : "oui"}</p>
 
                             <p class="message-content">${message.content}</p>
-                            <div class="message-action">
-                                <a href="/messageadmin/${message.id_message}/read">Lire</a>`
+                            <div class="message-action">`
             if (message.readed == 0) {
                 message_content += `
-                                <a href="/messageadmin/${message.id_message}/delete">Supprimer</a>`
+                                <a href="/messageadmin/${message.id_message}/read">Lire</a>`
             }
             message_content += `
+                                <a href="/messageadmin/${message.id_message}/delete">Supprimer</a>
                             </div>
                         </div>
                     `;
@@ -182,11 +194,14 @@ foreach ($messages as $message) {
 
         async function fetchmessage() {
             let response = await fetch(window.location.origin + "/api/getmessage", {
-                method: "GET",
+                method: "POST",
                 headers: {
                     Accept: "application/json",
                     "Content-type": "application/json; charset=UTF-8",
                 },
+                body: JSON.stringify({
+                    token: "<?= $api_token ?>"
+                }),
             }).then((response) => {
                 if (response.ok) {
                     response.json().then((data) => {
@@ -194,6 +209,8 @@ foreach ($messages as $message) {
                         setunread();
                         loadmessage();
                     });
+                } else {
+                    console.log(response);
                 }
             });
         }

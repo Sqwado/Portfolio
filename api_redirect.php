@@ -25,6 +25,14 @@ $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWOR
 
 //gestion des redirections
 
+$data = (array) json_decode(file_get_contents("php://input"), true);
+$token = $data["token"];
+
+if($api_token != $token){
+    echo json_encode(["error" => "Invalid token"]);
+    exit();
+}
+
 if ($parts[1] == "api") {
     if ($parts[2] == "getmessage") {
         include("Api_component/getmessage.php");

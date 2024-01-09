@@ -46,21 +46,47 @@ $competences = $competence->getCompetences();
 
         <div class="content">
 
-            <?php
+            <div class="link">
+                <a href="/newcompetenceadmin">Ajouter une competence</a>
+            </div>
 
-            foreach ($competences as $competence) {
-                echo "<div class='competence'>";
-                echo "<img class='main_img' src='" . $competence["logo"] . "' alt=''>";
-                echo "<h3>" . $competence["titre"] . "</h3>";
-                echo "<p>" . $competence["description"] . "</p>";
-                echo "<a href='/competenceadmin/" . $competence["id_competence"] . "/delete'>Supprimer</a>";
-                echo "</div>";
-            }
-
-            ?>
+            <div class="competences">
+                <?php foreach ($competences as $competence) : ?>
+                    <div class="competence">
+                        <div class="top_competence">
+                            <img class="logo_competence" src="<?php echo $competence["logo"]; ?>" alt="<?php echo $competence["titre"]; ?>">
+                            <p><?php echo $competence["titre"]; ?></p>
+                        </div>
+                        <p class="description"><?php echo $competence["description"]; ?></p>
+                        <div class="link">
+                            <a href="/modifycompetenceadmin/<?php echo $competence["id_competence"]; ?>">Modifier</a>
+                            <object class="delete_comp not-selectable">
+                                <span class="delete_but" id="<?php echo $competence["id_competence"] ?>">Delete</span>
+                            </object>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
 
         </div>
 
     </main>
 
+    <script>
+        let delete_but = document.getElementsByClassName("delete_but");
+
+        Array.prototype.forEach.call(delete_but, function(element) {
+            element.addEventListener("click", function() {
+                event.preventDefault();
+                let id_project = element.id;
+                let confirm = window.confirm("Are you sure you want to delete this competence ?");
+                if (confirm) {
+                    window.location.href = "/competenceadmin/" + id_project + "/delete";
+                }
+            });
+        });
+    </script>
+
 </body>
+
+</html>

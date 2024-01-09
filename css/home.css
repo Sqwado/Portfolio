@@ -111,11 +111,9 @@
 
 .competences{
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-wrap: wrap;
 
-    overflow-y: scroll;
+    overflow-x: scroll;
     scroll-snap-type: x mandatory;
 
     background-color: #0000005a;

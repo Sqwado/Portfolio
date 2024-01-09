@@ -61,6 +61,21 @@ switch ($parts[1]) {
     case "competenceadmin":
         include("page/competenceadmin.php");
         break;
+    case "newcompetenceadmin":
+        include("page/newcompetenceadmin.php");
+        break;
+    case "modifycompetenceadmin":
+        include("page/modifycompetenceadmin.php");
+        break;
+    case "articleadmin":
+        include("page/articleadmin.php");
+        break;
+    case "newarticleadmin":
+        include("page/newarticleadmin.php");
+        break;
+    case "modifyarticleadmin":
+        include("page/modifyarticleadmin.php");
+        break;
     default:
         header("Location: /home");
 }
