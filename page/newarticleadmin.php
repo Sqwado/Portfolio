@@ -11,19 +11,19 @@ $parts = explode("/", $_SERVER["REQUEST_URI"]);
 
 $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWORD);
 
-$projects = new Project($database);
+$articles = new Article($database);
 
 if(isset($_POST["titre"]) && isset($_POST["main_img"]) && isset($_POST["description"]) && isset($_POST["publi_date"])) {
-    $projects->createProject($_POST["titre"], $_POST["main_img"], $_POST["description"], $_POST["publi_date"], "");
+    $articles->createArticle($_POST["titre"], $_POST["main_img"], $_POST["description"], $_POST["publi_date"], "");
     $id = $database->get_connection()->lastInsertId();
-    header("Location: /modifyprojectinfoadmin/$id");
+    header("Location: /modifyarticleinfoadmin/$id");
     exit();
 }
 
 if (isset($parts[2]) && is_numeric($parts[2])) {
     if (isset($parts[3]) && $parts[3] == "save") {
-        $projects->updateProject($id, $_POST["titre"], $_POST["main_img"], $_POST["description"], $_POST["publi_date"], "");
-        header("Location: /modifyprojectinfoadmin/$id");
+        $articles->updateArticle($id, $_POST["titre"], $_POST["main_img"], $_POST["description"], $_POST["publi_date"], "");
+        header("Location: /modifyarticleinfoadmin/$id");
         exit();
     }
 }
@@ -38,7 +38,7 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
-    <link rel="stylesheet" href="/css/newprojectadmin.css">
+    <link rel="stylesheet" href="/css/newarticleadmin.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.css">
 </head>
@@ -47,14 +47,14 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
     <?php include "components/navadmin.php"; ?>
     <main>
         <div class="top">
-            <h2>New Project</h2>
+            <h2>New Article</h2>
         </div>
 
         <div class="content">
             <div class="show">
                 <form action=<?php echo $_SERVER["REQUEST_URI"] . "/save"; ?> method="post">
                     <div class="container">
-                        <div class="project">
+                        <div class="article">
                             <h3>Informations</h3>
                             <div class="input_wrapper">
                                 <label for="titre">Titre</label>
@@ -79,9 +79,9 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
             </div>
             <div class="show">
                 <h3>Preview</h3>
-                <div class="project">
+                <div class="article">
                     <h3 id="tire_show"></h3>
-                    <img id="main_img_show" class="main_img_project" src="" alt="">
+                    <img id="main_img_show" class="main_img_article" src="" alt="">
                     <p id="description_show"></p>
                     <p id="publi_date_show"></p>
                 </div>

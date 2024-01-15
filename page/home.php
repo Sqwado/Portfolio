@@ -175,6 +175,44 @@ $articles = $article->getArticles();
         <div>
             <h2>Articles</h2>
             <div class="articles">
+                <?php foreach ($articles as $article) : ?>
+                    <a href="/article/<?php echo $article["id_article"]; ?>">
+                        <div class="article">
+                            <h3><?php echo $article["titre"]; ?></h3>
+                            <div class="category_container">
+                                <?php
+                                $categorie = new Article_categorie($database);
+                                $categorie->join_categorie = true;
+                                $categories = $categorie->getArticle_CategorieByArticle($article["id_article"]);
+
+                                if (!empty($categories)) {
+                                    foreach ($categories as $categorie) : ?>
+                                        <div class="category">
+                                            <img class="logo_category" src="<?php echo $categorie["logo"]; ?>" alt="<?php echo $categorie["nom"]; ?>">
+                                            <p><?php echo $categorie["nom"]; ?></p>
+                                            <object>
+                                                <a href="/categorie/<?php echo $categorie["id_categorie"]; ?>">
+                                                    <span class="link"></span>
+                                                </a>
+                                            </object>
+                                        </div>
+                                <?php endforeach;
+                                } else {
+                                    echo "<p>Aucune catégorie</p>";
+                                }
+
+                                ?>
+                            </div>
+                            <div class="main_img_article_container">
+                                <img class="main_img_article" src="<?php echo $article["main_img"]; ?>" alt="<?php echo $article["titre"]; ?>">
+
+                            </div>
+                            <p class="description"><?php echo $article["description"]; ?></p>
+                            <p><?php echo $article["publi_date"]; ?></p>
+
+                        </div>
+                    </a>
+                <?php endforeach; ?>
 
             </div>
         </div>

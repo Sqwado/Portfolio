@@ -73,8 +73,11 @@ switch ($parts[1]) {
     case "newarticleadmin":
         include("page/newarticleadmin.php");
         break;
-    case "modifyarticleadmin":
-        include("page/modifyarticleadmin.php");
+    case "modifyarticleinfoadmin":
+        include("page/modifyarticleinfoadmin.php");
+        break;
+    case "modifyarticlecontentadmin":
+        include("page/modifyarticlecontentadmin.php");
         break;
     default:
         header("Location: /home");

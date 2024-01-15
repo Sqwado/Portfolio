@@ -26,6 +26,11 @@ class Database
         ]);
     }
 
+    public function get_connection(): PDO
+    {
+        return $this->connection;
+    }
+
     public function presql(string $sql): void
     {
         $this->sql = $sql;

@@ -1,3 +1,9 @@
+
+
+
+
+
+
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
@@ -46,11 +52,12 @@ body::before {
     left: -10px;
     width: calc(100vw + 20px);
     height: calc(100vh + 20px);
-    background-image: url("../assets/background.jpg");
+    /* background-image: url("../assets/background.svg"); */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: blur(3px);
+    background-color: #8ba7ce;
+    /* filter: blur(3px); */
     z-index: -1;
 }
 
