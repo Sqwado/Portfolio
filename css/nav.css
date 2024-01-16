@@ -1,6 +1,10 @@
 .dropnav{
-    position: absolute;
+    position: fixed;
     right: 2vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
 }
 
 .redirect {
@@ -37,35 +41,36 @@
     justify-content: space-between;
     align-items: center;
 
-    background-color: #0000003e;
+    background-color: #a4a4a4d7;
     border-radius: 10px;
 
     padding: 0.5rem;
 
     cursor: pointer;
     position: relative;
+
+    z-index: 10;
 }
 
 .dropbtn:hover{
-    background-color: #0000001a;
+    background-color: #a1a1a193;
 }
 
 .dropbtn.active{
-    background-color: #3b3b3b8f;
+    background-color: #646464c1;
 }
 
 #navcontent{
-    display: none;
+    position: relative;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    right: 0;
+    right: -160%;
     width: fit-content;
-    top: 4.5rem;
-    position: absolute;
     background-color: #fafafab1;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.421);
     border-radius: 10px;
-    z-index: 3;
+    z-index: 10;
     transition: all 0.5s ease;
 }
 

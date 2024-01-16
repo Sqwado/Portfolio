@@ -35,40 +35,46 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
             <?php include("components/nav.php"); ?>
 
             <div class="content">
-                <div class="project">
-                    <h3><?php echo $project["titre"]; ?></h3>
-                    <div class="category_container">
-                        <?php
-                        $categorie = new Project_categorie($database);
-                        $categorie->join_categorie = true;
-                        $categories = $categorie->getProject_CategorieByProject($project["id_project"]);
+                <div class="showcase">
+                    <div class="project_show">
 
-                        if (!empty($categories)) {
-                            foreach ($categories as $categorie) : ?>
-                                <div class="category">
-                                    <img class="logo_category" src="<?php echo $categorie["logo"]; ?>" alt="<?php echo $categorie["nom"]; ?>">
-                                    <p><?php echo $categorie["nom"]; ?></p>
-                                    <object>
-                                        <a href="/home/<?php echo $categorie["id_categorie"]; ?>">
-                                            <span class="link"></span>
-                                        </a>
-                                    </object>
-                                </div>
-                        <?php endforeach;
-                        } else {
-                            echo "<p>Aucune catégorie</p>";
-                        }
+                        <div class="first_img">
+                            <img class="first_main_img" src="<?php echo $project["main_img"]; ?>" alt="<?php echo $project["titre"]; ?>">
+                        </div>
 
+                        <div class="first_content">
+                            <div class="category_container">
+                                <?php $categorie = new Project_categorie($database);
+                                $categorie->join_categorie = true;
+                                $categories = $categorie->getProject_CategorieByProject($project["id_project"]);
 
-                        ?>
+                                if (!empty($categories)) {
+                                    foreach ($categories as $categorie) : ?>
+                                        <div class="category">
+                                            <img class="logo_category" src="<?php echo $categorie["logo"]; ?>" alt="<?php echo $categorie["nom"]; ?>">
+                                            <p><?php echo $categorie["nom"]; ?></p>
+                                            <object>
+                                                <a href="/home/<?php echo $categorie["id_categorie"]; ?>">
+                                                    <span class="link"></span>
+                                                </a>
+                                            </object>
+                                        </div>
+                                <?php
+                                    endforeach;
+                                } else {
+                                    echo "<p class='category'>Aucune catégorie</p>";
+                                } ?>
+                            </div>
+                            <h2><?php echo $project["titre"]; ?></h2>
+                            <p class="description"><?php echo $project["description"]; ?></p>
+                            <p><?php echo $project["publi_date"]; ?></p>
+                        </div>
                     </div>
-                    <div class="main_img_project_container">
-                        <img class="main_img_project" src="<?php echo $project["main_img"]; ?>" alt="<?php echo $project["titre"]; ?>">
+                    <div>
+                        <div class="project_content">
+                            <?php echo $project["content"]; ?>
+                        </div>
                     </div>
-                    <p class="description"><?php echo $project["description"]; ?></p>
-                    <p><?php echo $project["publi_date"]; ?></p>
-
-                    <p><?php echo $project["content"]; ?></p>
                 </div>
             </div>
         </body>
@@ -86,6 +92,12 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
     <body>
         <?php include("components/nav.php"); ?>
         <h2>Projects</h2>
+
+        <small class="zigzag">
+            Latest posts
+            <svg role="img" viewBox="0 0 136 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.525 1.525a3.5 3.5 0 014.95 0L20 15.05 33.525 1.525a3.5 3.5 0 014.95 0L52 15.05 65.525 1.525a3.5 3.5 0 014.95 0L84 15.05 97.525 1.525a3.5 3.5 0 014.95 0L116 15.05l13.525-13.525a3.5 3.5 0 014.95 4.95l-16 16a3.5 3.5 0 01-4.95 0L100 8.95 86.475 22.475a3.5 3.5 0 01-4.95 0L68 8.95 54.475 22.475a3.5 3.5 0 01-4.95 0L36 8.95 22.475 22.475a3.5 3.5 0 01-4.95 0l-16-16a3.5 3.5 0 010-4.95z"></path>
+            </svg> </small>
 
         <?php
         $project = $projects[0] ?>
@@ -122,7 +134,6 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
         </a>
 
         <?php array_shift($projects); ?>
-        </div>
 
         <div class="projects">
             <?php

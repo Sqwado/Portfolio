@@ -37,8 +37,34 @@
     object-fit: contain;
 }
 
+.zigzag {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #f4f4f4;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+
+    left: -60px;
+    top: 309px;
+    rotate: -90deg;
+}
+
+.zigzag svg {
+    display: none;
+    height: fit-content;
+    width: 90px;
+    fill: #cecece;
+}
+
 .project_first {
-    width: auto;
+    width: calc(100% - 70px - 1rem);
     height: fit-content;
 
     display: flex;
@@ -46,6 +72,8 @@
     align-items: center;
 
     margin: 0.5rem;
+    margin-right: 1rem;
+    margin-left: 70px ;
 
     background-color: #303544;
     border-radius: 10px;
@@ -70,8 +98,8 @@
     border-radius: 10px;
 }
 
-.first_content{
-    height: 500px;
+.first_content {
+    height: calc(500px - 2rem);
     width: 100%;
     max-width: calc(100% / 2);
 
@@ -82,13 +110,27 @@
     padding: 1rem;
 }
 
+.first_content h2 {
+    color: #f4f4f4;
+}
+
+.first_content .category .logo_category {
+    height: 50px;
+    width: 50px;
+}
+
+.first_content .category p {
+    font-size: 1.5rem;
+}
+
 .projects {
-    width: fit-content;
+    /* width: fit-content; */
 
     display: flex;
     align-items: center;
     justify-content: space-around;
     flex-wrap: wrap;
+    gap: 2rem;
 
     margin: 0.5rem;
 }
@@ -99,6 +141,7 @@
 
     min-width: 300px;
     min-height: 515px;
+    max-width: 700px;
 
     font-size: 1.25rem;
     font-weight: 500;
@@ -158,6 +201,10 @@
     height: fit-content;
 }
 
+.title_content h3 {
+    color: #f4f4f4;
+}
+
 .main_img_project_container {
     height: 250px;
     width: 100%;
@@ -211,10 +258,12 @@
     scroll-snap-align: center;
 
     margin: 0 0.5rem;
-    padding: 0 0.5rem;
+    padding: 0.5rem;
 
     cursor: pointer;
     position: relative;
+
+    width: fit-content;
 }
 
 .category p {
@@ -261,23 +310,146 @@
 
 /* project affichage detail */
 
-.img_wrapper{
+.showcase {
     width: 100%;
-    height: 500px;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 5%;
+
+    background-color: #303544;
+    border-radius: 10px;
+}
+
+.project_show{
+    width: calc(100% - 1rem);
+    height: fit-content;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
+    margin: 0.5rem;
+    margin-right: 1rem;
+
+    background-color: #303544;
+    border-radius: 10px;
+}
+
+.project_detail {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 1rem;
+
+    background-color: #303544;
+    border-radius: 10px;
+}
+
+.project_content {
+    width: 90%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 5%;
+}
+
+.first_content .category_container {
+    height: fit-content;
+    width: 100%;
+
+    margin: 0;
+}
+
+.first_content .category {
+
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+
+}
+
+.first_content .category .logo_category {
+    height: 30px;
+    width: 30px;
+}
+
+.first_content .category p {
+    font-size: 1rem;
+}
+
+.img_wrapper {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
     background-color: #0000000c;
     border-radius: 10px;
 }
 
-.img_wrapper img{
-    height: 500px;
+.img_wrapper img {
     width: 100%;
     object-fit: cover;
     border-radius: 10px;
 }
 
+@media screen and (max-width: 769px) {
+    .zigzag {
+        rotate: 0deg;
+        left: calc(50% - 91px);
+        top: 69px;
+    }
 
+    .zigzag svg {
+        display: block;
+    }
+
+    .project_first {
+        width: calc(100% - 2rem);
+        flex-direction: column;
+        margin: 1rem;
+        margin-top: 70px;
+    }
+
+    .first_img {
+        height: 300px;
+        width: 100%;
+        max-width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .first_main_img {
+        height: 300px;
+        width: 100%;
+        max-width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .first_content {
+        position: relative;
+        height: fit-content;
+        max-width: calc(100% - 2rem);
+        flex-direction: column;
+        justify-content: space-between;
+
+    }
+}

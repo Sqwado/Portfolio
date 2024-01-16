@@ -24,7 +24,9 @@
     const navcontent = document.getElementById("navcontent");
 
     navdropbtn.addEventListener("click", () => {
-        navcontent.style.display = navcontent.style.display == "flex" ? "none" : "flex";
+        // navcontent.style.display = navcontent.style.display == "flex" ? "none" : "flex";
+        navcontent.style.right = navcontent.style.right == "0px" ? "-160%" : "0px";
         navdropbtn.classList.toggle("active");
+
     });
 </script>

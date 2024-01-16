@@ -14,18 +14,10 @@ $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWOR
 $articles = new Article($database);
 
 if(isset($_POST["titre"]) && isset($_POST["main_img"]) && isset($_POST["description"]) && isset($_POST["publi_date"])) {
-    $articles->createArticle($_POST["titre"], $_POST["main_img"], $_POST["description"], $_POST["publi_date"], "");
+    $articles->createArticle($_POST["titre"], $_POST["main_img"], $_POST["description"], $_POST["publi_date"], "<p>Contenu en cour de création</p>");
     $id = $database->get_connection()->lastInsertId();
     header("Location: /modifyarticleinfoadmin/$id");
     exit();
-}
-
-if (isset($parts[2]) && is_numeric($parts[2])) {
-    if (isset($parts[3]) && $parts[3] == "save") {
-        $articles->updateArticle($id, $_POST["titre"], $_POST["main_img"], $_POST["description"], $_POST["publi_date"], "");
-        header("Location: /modifyarticleinfoadmin/$id");
-        exit();
-    }
 }
 
 ?>
