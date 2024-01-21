@@ -13,15 +13,23 @@ $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWOR
 
 $competence = new Competence($database);
 
-if(!isset($parts[2]) || !is_numeric($parts[2])){
+if (!isset($parts[2]) || !is_numeric($parts[2])) {
     header("Location: /competenceadmin");
     exit();
-}else{
+} else {
     $id = (int) $parts[2];
     $competences = $competence->getCompetence($id)[0];
 }
 
 if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["description"]) && !empty($_POST["description"]) && isset($_POST["logo"]) && !empty($_POST["logo"])) {
+    $token = htmlspecialchars($_POST['token']);
+
+    if (!isset($_SESSION['token']) || $token != $_SESSION['token']) {
+        $_SESSION["message"] = "Erreur lors de l'envoi du message";
+        header("Location: /contact");
+        exit();
+    }
+
     $titre = htmlspecialchars($_POST["titre"]);
     $description = htmlspecialchars($_POST["description"]);
     $logo = htmlspecialchars($_POST["logo"]);
@@ -35,6 +43,8 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["descripti
 
     header("Location: /competenceadmin");
     exit();
+} else {
+    $_SESSION['token'] = bin2hex(random_bytes(35));
 }
 
 ?>
@@ -79,6 +89,7 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["descripti
                         <label for="description">Description</label>
                         <textarea name="description" id="description" cols="30" rows="10" required><?php echo $competences["description"] ?></textarea>
                     </div>
+                    <input type="hidden" name="token" value="<?= $_SESSION['token'] ?? '' ?>">
                     <div class="input">
                         <input type="submit" value="Modifier">
                     </div>

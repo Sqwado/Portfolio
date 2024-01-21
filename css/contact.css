@@ -1,0 +1,105 @@
+@import url(/css/style.css);
+
+.link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.message {
+    z-index: 2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-image: linear-gradient(120deg, rgb(103, 51, 155) 0%, rgb(27, 108, 195)100%);
+    color: #000000;
+
+    position: fixed;
+    top: 2%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+
+    padding: 1rem;
+
+    border-radius: 10px;
+
+    transition: 0.3s;
+
+}
+
+.social {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+    margin: 1rem;
+    background-color: #30303035;
+    border-radius: 10px;
+}
+
+.social>* {
+    margin: 0.5rem;
+}
+
+.logo_social {
+    height: 50px;
+    width: 50px;
+
+    object-fit: contain;
+}
+
+.contact {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+
+    background-color: #0000005a;
+    border-radius: 10px;
+    margin: 0.5rem;
+    padding: 0.5rem;
+}
+
+.contact_info {
+    display: flex;
+    flex-direction: column;
+
+    padding: 0.5rem;
+    margin: 1rem;
+    margin-top: 0;
+
+    background-color: #30303035;
+    border-radius: 10px;
+}
+
+.contact_form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    padding: 0.5rem;
+    margin: 1rem;
+    margin-top: 0;
+
+    background-color: #30303035;
+    border-radius: 10px;
+}
+
+.contact_form>* {
+    margin: 0.2rem;
+}
+
+@media screen and (max-width: 1040px) {
+
+    .contact {
+        flex-direction: column;
+    }
+
+}

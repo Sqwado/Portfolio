@@ -16,7 +16,7 @@ class Article_categorie
         } else {
             $this->database->presql("SELECT * FROM Article_categorie WHERE id_art_cat = :id_art_cat");
         }
-        $this->database->bindParam(":id_art_cat", $id);
+        $this->database->bindParam(":id_art_cat", htmlspecialchars($id));
         $this->database->execute();
 
         return $this->database->data;
@@ -29,7 +29,7 @@ class Article_categorie
         } else {
             $this->database->presql("SELECT * FROM Article_categorie WHERE id_article = :id_article");
         }
-        $this->database->bindParam(":id_article", $id_article);
+        $this->database->bindParam(":id_article", htmlspecialchars($id_article));
         $this->database->execute();
 
         return $this->database->data;
@@ -42,7 +42,7 @@ class Article_categorie
         } else {
             $this->database->presql("SELECT * FROM Article_categorie WHERE id_categorie = :id_categorie");
         }
-        $this->database->bindParam(":id_categorie", $id_categorie);
+        $this->database->bindParam(":id_categorie", htmlspecialchars($id_categorie));
         $this->database->execute();
 
         return $this->database->data;
@@ -63,24 +63,24 @@ class Article_categorie
     public function createArticle_Categorie(int $id_article, int $id_categorie): void
     {
         $this->database->presql("INSERT INTO Article_categorie (id_article, id_categorie) VALUES (:id_article, :id_categorie)");
-        $this->database->bindParam(":id_article", $id_article);
-        $this->database->bindParam(":id_categorie", $id_categorie);
+        $this->database->bindParam(":id_article", htmlspecialchars($id_article));
+        $this->database->bindParam(":id_categorie", htmlspecialchars($id_categorie));
         $this->database->execute();
     }
 
     public function updateArticle_Categorie(int $id, int $id_article, int $id_categorie): void
     {
         $this->database->presql("UPDATE Article_categorie SET id_article = :id_article, id_categorie = :id_categorie WHERE id_art_cat = :id_art_cat");
-        $this->database->bindParam(":id_art_cat", $id);
-        $this->database->bindParam(":id_article", $id_article);
-        $this->database->bindParam(":id_categorie", $id_categorie);
+        $this->database->bindParam(":id_art_cat", htmlspecialchars($id));
+        $this->database->bindParam(":id_article", htmlspecialchars($id_article));
+        $this->database->bindParam(":id_categorie", htmlspecialchars($id_categorie));
         $this->database->execute();
     }
 
     public function deleteArticle_Categorie(int $id): void
     {
         $this->database->presql("DELETE FROM Article_categorie WHERE id_art_cat = :id_art_cat");
-        $this->database->bindParam(":id_art_cat", $id);
+        $this->database->bindParam(":id_art_cat", htmlspecialchars($id));
         $this->database->execute();
     }
 }

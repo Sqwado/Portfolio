@@ -34,6 +34,9 @@ switch ($parts[1]) {
     case "article":
         include("page/article.php");
         break;
+    case "contact":
+        include("page/contact.php");
+        break;
     case "loginadmin":
         include("page/loginadmin.php");
         break;

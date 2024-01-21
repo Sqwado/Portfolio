@@ -2,7 +2,7 @@
 
 $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWORD);
 
-$project = new Project($database);
+$article = new Article($database);
 
 $parts = explode("/", $_SERVER["REQUEST_URI"]);
 
@@ -15,20 +15,20 @@ $parts = explode("/", $_SERVER["REQUEST_URI"]);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
-    <link rel="stylesheet" href="/css/project.css">
+    <title>Articles</title>
+    <link rel="stylesheet" href="/css/article.css">
 </head>
 
 <?php
 
 if (isset($parts[2]) && is_numeric($parts[2])) {
     $id = (int) $parts[2];
-    $projects = $project->getProject($id);
+    $articles = $article->getArticle($id);
 
-    if (empty($projects)) {
-        header("Location: /project");
+    if (empty($articles)) {
+        header("Location: /article");
     } else {
-        $project = $projects[0];
+        $article = $articles[0];
 ?>
 
         <body>
@@ -36,17 +36,17 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
             <?php include("components/back.php"); ?>
             <div class="content">
                 <div class="showcase">
-                    <div class="project_show">
+                    <div class="article_show">
 
                         <div class="first_img">
-                            <img class="first_main_img" src="<?php echo $project["main_img"]; ?>" alt="<?php echo $project["titre"]; ?>">
+                            <img class="first_main_img" src="<?php echo $article["main_img"]; ?>" alt="<?php echo $article["titre"]; ?>">
                         </div>
 
                         <div class="first_content">
                             <div class="category_container">
-                                <?php $categorie = new Project_categorie($database);
+                                <?php $categorie = new Article_categorie($database);
                                 $categorie->join_categorie = true;
-                                $categories = $categorie->getProject_CategorieByProject($project["id_project"]);
+                                $categories = $categorie->getArticle_CategorieByArticle($article["id_article"]);
 
                                 if (!empty($categories)) {
                                     foreach ($categories as $categorie) : ?>
@@ -65,33 +65,33 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
                                     echo "<p class='category'>Aucune catégorie</p>";
                                 } ?>
                             </div>
-                            <h2><?php echo $project["titre"]; ?></h2>
-                            <p class="description"><?php echo $project["description"]; ?></p>
-                            <p><?php echo $project["publi_date"]; ?></p>
+                            <h2><?php echo $article["titre"]; ?></h2>
+                            <p class="description"><?php echo $article["description"]; ?></p>
+                            <p><?php echo $article["publi_date"]; ?></p>
                         </div>
                     </div>
                     <div>
-                        <div class="project_content">
-                            <?php echo $project["content"]; ?>
+                        <div class="article_content">
+                            <?php echo $article["content"]; ?>
                         </div>
                     </div>
                 </div>
             </div>
         </body>
         <script>
-            document.title = "<?php echo $project["titre"]; ?>";
+            document.title = "<?php echo $article["titre"]; ?>";
         </script>
 
     <?php
     }
 } else {
-    $projects = $project->getProjects();
+    $articles = $article->getArticles();
 
     ?>
 
     <body>
         <?php include("components/nav.php"); ?>
-        <h2>Projects</h2>
+        <h2>Articles</h2>
 
         <small class="zigzag">
             Latest posts
@@ -99,17 +99,17 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
         </small>
 
         <?php
-        $project = $projects[0] ?>
-        <a class="project_first" href="/project/<?php echo $project["id_project"]; ?>">
+        $article = $articles[0] ?>
+        <a class="article_first" href="/article/<?php echo $article["id_article"]; ?>">
 
             <div class="first_img">
-                <img class="first_main_img" src="<?php echo $project["main_img"]; ?>" alt="<?php echo $project["titre"]; ?>">
+                <img class="first_main_img" src="<?php echo $article["main_img"]; ?>" alt="<?php echo $article["titre"]; ?>">
             </div>
 
             <div class="first_content">
-                <?php $categorie = new Project_categorie($database);
+                <?php $categorie = new Article_categorie($database);
                 $categorie->join_categorie = true;
-                $categories = $categorie->getProject_CategorieByProject($project["id_project"]);
+                $categories = $categorie->getArticle_CategorieByArticle($article["id_article"]);
 
                 if (!empty($categories)) {
                     $categorie = $categories[0] ?>
@@ -126,35 +126,35 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
                 } else {
                     echo "<p class='category'>Aucune catégorie</p>";
                 } ?>
-                <h2><?php echo $project["titre"]; ?></h2>
-                <p class="description"><?php echo $project["description"]; ?></p>
-                <p><?php echo $project["publi_date"]; ?></p>
+                <h2><?php echo $article["titre"]; ?></h2>
+                <p class="description"><?php echo $article["description"]; ?></p>
+                <p><?php echo $article["publi_date"]; ?></p>
             </div>
         </a>
 
-        <?php array_shift($projects); ?>
+        <?php array_shift($articles); ?>
 
-        <div class="projects">
+        <div class="articles">
             <?php
-            if (empty($projects)) {
-                echo "<p>Aucun project</p>";
+            if (empty($articles)) {
+                echo "<p>Aucun article</p>";
             } else {
-                foreach ($projects as $project) : ?>
-                    <a class="project" href="/project/<?php echo $project["id_project"]; ?>">
+                foreach ($articles as $article) : ?>
+                    <a class="article" href="/article/<?php echo $article["id_article"]; ?>">
 
-                        <div class="main_img_project_container">
-                            <img class="main_img_project" src="<?php echo $project["main_img"]; ?>" alt="<?php echo $project["titre"]; ?>">
+                        <div class="main_img_article_container">
+                            <img class="main_img_article" src="<?php echo $article["main_img"]; ?>" alt="<?php echo $article["titre"]; ?>">
                         </div>
 
                         <div class="main_content">
                             <div class="title_content">
-                                <h3><?php echo $project["titre"]; ?></h3>
+                                <h3><?php echo $article["titre"]; ?></h3>
                             </div>
 
                             <div class="bottom_part">
-                                <?php $categorie = new Project_categorie($database);
+                                <?php $categorie = new Article_categorie($database);
                                 $categorie->join_categorie = true;
-                                $categories = $categorie->getProject_CategorieByProject($project["id_project"]);
+                                $categories = $categorie->getArticle_CategorieByArticle($article["id_article"]);
 
                                 if (!empty($categories)) {
                                     $categorie = $categories[0] ?>

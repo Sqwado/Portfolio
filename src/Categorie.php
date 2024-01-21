@@ -10,7 +10,7 @@ class Categorie
     public function getCategorie(int $id): array
     {
         $this->database->presql("SELECT * FROM Categorie WHERE id_categorie = :id_categorie");
-        $this->database->bindParam(":id_categorie", $id);
+        $this->database->bindParam(":id_categorie", htmlspecialchars($id));
         $this->database->execute();
 
         return $this->database->data;
@@ -27,24 +27,24 @@ class Categorie
     public function createCategorie(string $nom, string $logo): void
     {
         $this->database->presql("INSERT INTO Categorie (nom, logo) VALUES (:nom, :logo)");
-        $this->database->bindParam(":nom", $nom);
-        $this->database->bindParam(":logo", $logo);
+        $this->database->bindParam(":nom", htmlspecialchars($nom));
+        $this->database->bindParam(":logo", htmlspecialchars($logo));
         $this->database->execute();
     }
 
     public function updateCategorie(int $id, string $nom, string $logo): void
     {
         $this->database->presql("UPDATE Categorie SET nom = :nom, logo = :logo WHERE id_categorie = :id_categorie");
-        $this->database->bindParam(":id_categorie", $id);
-        $this->database->bindParam(":nom", $nom);
-        $this->database->bindParam(":logo", $logo);
+        $this->database->bindParam(":id_categorie", htmlspecialchars($id));
+        $this->database->bindParam(":nom", htmlspecialchars($nom));
+        $this->database->bindParam(":logo", htmlspecialchars($logo));
         $this->database->execute();
     }
 
     public function deleteCategorie(int $id): void
     {
         $this->database->presql("DELETE FROM Categorie WHERE id_categorie = :id_categorie");
-        $this->database->bindParam(":id_categorie", $id);
+        $this->database->bindParam(":id_categorie", htmlspecialchars($id));
         $this->database->execute();
     }
 }

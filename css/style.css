@@ -48,7 +48,7 @@ body::-webkit-scrollbar-track {
 
 body {
     background-color: #ffffff;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     overflow-x: hidden;
     height: 100vh;
 }
@@ -56,15 +56,12 @@ body {
 body::before {
     content: "";
     position: fixed;
-    top: -10px;
-    left: -10px;
-    width: calc(100vw + 20px);
-    height: calc(100vh + 20px);
-    /* background-image: url("../assets/background.svg"); */
+    width: 100vw;
+    height: 100vh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #8ba7ce;
+    background-image: linear-gradient(120deg, #08edc3 0%, #08AFED 100%);
     /* filter: blur(3px); */
     z-index: -1;
 }
@@ -100,6 +97,7 @@ p{
 
 h1 {
     margin: 1vw;
+    margin-top: 0;
     padding: 0;
     font-size: calc(3em + 2.5vmin);
     font-weight: 600;
@@ -110,6 +108,7 @@ h1 {
 
 h2 {
     margin: 1vw;
+    margin-top: 0;
     padding: 0;
     font-size: calc(2em + 2vmin);
     font-weight: 600;

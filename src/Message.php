@@ -11,7 +11,7 @@ class Message
     public function getMessage(int $id): array
     {
         $this->database->presql("SELECT * FROM Message WHERE id_message = :id_message");
-        $this->database->bindParam(":id_message", $id);
+        $this->database->bindParam(":id_message", htmlspecialchars($id));
         $this->database->execute();
 
         return $this->database->data;
@@ -44,8 +44,8 @@ class Message
     public function createMessage(string $email, string $content): void
     {
         $this->database->presql("INSERT INTO Message (email, content, sending_date, readed) VALUES (:email, :content, Now(), 0)");
-        $this->database->bindParam(":email", $email);
-        $this->database->bindParam(":content", $content);
+        $this->database->bindParam(":email", htmlspecialchars($email));
+        $this->database->bindParam(":content", htmlspecialchars($content));
 
         try {
             $this->database->execute();
@@ -57,11 +57,11 @@ class Message
     public function updateMessage(int $id, string $email, string $content, string $sending_date, int $readed): void
     {
         $this->database->presql("UPDATE Message SET email = :email, content = :content, sending_date = :sending_date, readed = :readed WHERE id_message = :id_message");
-        $this->database->bindParam(":id_message", $id);
-        $this->database->bindParam(":email", $email);
-        $this->database->bindParam(":content", $content);
-        $this->database->bindParam(":sending_date", $sending_date);
-        $this->database->bindParam(":readeds", $readed);
+        $this->database->bindParam(":id_message", htmlspecialchars($id));
+        $this->database->bindParam(":email", htmlspecialchars($email));
+        $this->database->bindParam(":content", htmlspecialchars($content));
+        $this->database->bindParam(":sending_date", htmlspecialchars($sending_date));
+        $this->database->bindParam(":readeds", htmlspecialchars($readed));
 
         $this->database->execute();
     }
@@ -69,21 +69,21 @@ class Message
     public function deleteMessage(int $id): void
     {
         $this->database->presql("DELETE FROM Message WHERE id_message = :id_message");
-        $this->database->bindParam(":id_message", $id);
+        $this->database->bindParam(":id_message", htmlspecialchars($id));
         $this->database->execute();
     }
 
     public function readMessage(int $id): void
     {
         $this->database->presql("UPDATE Message SET readed = 1 WHERE id_message = :id_message");
-        $this->database->bindParam(":id_message", $id);
+        $this->database->bindParam(":id_message", htmlspecialchars($id));
         $this->database->execute();
     }
 
     public function unreadMessage(int $id): void
     {
         $this->database->presql("UPDATE Message SET readed = 0 WHERE id_message = :id_message");
-        $this->database->bindParam(":id_message", $id);
+        $this->database->bindParam(":id_message", htmlspecialchars($id));
         $this->database->execute();
     }
 }

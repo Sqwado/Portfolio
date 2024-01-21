@@ -28,7 +28,7 @@ code>*{
     overflow-y: scroll;
 }
 
-.main_img_project {
+.main_img_article {
     height: 150px;
     width: 250px;
 
@@ -37,17 +37,51 @@ code>*{
 
 .img_wrapper {
     width: 100%;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0.5rem 0;
+
+    margin-bottom: 1rem;
+
+    background-color: #0000000c;
+    border-radius: 10px;
 }
 
 .img_wrapper img {
-    width: 90%;
+    width: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
     border-radius: 10px;
+}
+
+.text_wrapper {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #0000000c;
+    border-radius: 10px;
+
+    margin-bottom: 1rem;
+}
+
+.text_wrapper p {
+    color: #f4f4f4;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    word-spacing: 0.1em;
+    letter-spacing: 0.1em;
+
+    padding: 1rem;
+
+}
+
+.preview hr {
+    width: calc(100% - 5px);
+    height: 3px;
+    background-color: #f4f4f4;
 }
 
 .input_wrapper {

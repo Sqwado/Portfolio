@@ -22,9 +22,19 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
     }
 
     if (isset($parts[3]) && $parts[3] == "save") {
+        $token = htmlspecialchars($_POST['token']);
+
+        if (!isset($_SESSION['token']) || $token != $_SESSION['token']) {
+            $_SESSION["message"] = "Erreur lors de l'envoi du message";
+            header("Location: /contact");
+            exit();
+        }
+
         $projects->updateProject($id, $_POST["titre"], $_POST["main_img"], $_POST["description"], $_POST["publi_date"], $project["content"]);
         header("Location: /modifyprojectinfoadmin/$id");
         exit();
+    } else {
+        $_SESSION['token'] = bin2hex(random_bytes(35));
     }
 } else {
     header("Location: /projectadmin");
@@ -77,6 +87,7 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
                                 <input type="date" name="publi_date" id="publi_date" value="<?php echo $project["publi_date"]; ?>">
                             </div>
                         </div>
+                        <input type="hidden" name="token" value="<?= $_SESSION['token'] ?? '' ?>">
                         <input type="submit" value="Save">
                     </div>
                 </form>

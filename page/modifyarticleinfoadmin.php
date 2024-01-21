@@ -22,9 +22,18 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
     }
 
     if (isset($parts[3]) && $parts[3] == "save") {
+        $token = htmlspecialchars($_POST['token']);
+
+        if (!isset($_SESSION['token']) || $token != $_SESSION['token']) {
+            header("Location: /modifyarticleinfoadmin/$id");
+            exit();
+        }
+
         $articles->updateArticle($id, $_POST["titre"], $_POST["main_img"], $_POST["description"], $_POST["publi_date"], $article["content"]);
         header("Location: /modifyarticleinfoadmin/$id");
         exit();
+    }else{
+        $_SESSION['token'] = bin2hex(random_bytes(35));
     }
 } else {
     header("Location: /articleadmin");

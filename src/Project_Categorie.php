@@ -16,7 +16,7 @@ class Project_categorie
         } else {
             $this->database->presql("SELECT * FROM Project_categorie WHERE id_pro_cat = :id_pro_cat");
         }
-        $this->database->bindParam(":id_pro_cat", $id);
+        $this->database->bindParam(":id_pro_cat", htmlspecialchars($id));
         $this->database->execute();
 
         return $this->database->data;
@@ -29,7 +29,7 @@ class Project_categorie
         } else {
             $this->database->presql("SELECT * FROM Project_categorie WHERE id_project = :id_project");
         }
-        $this->database->bindParam(":id_project", $id_project);
+        $this->database->bindParam(":id_project", htmlspecialchars($id_project));
         $this->database->execute();
 
         return $this->database->data;
@@ -42,7 +42,7 @@ class Project_categorie
         } else {
             $this->database->presql("SELECT * FROM Project_categorie WHERE id_categorie = :id_categorie");
         }
-        $this->database->bindParam(":id_categorie", $id_categorie);
+        $this->database->bindParam(":id_categorie", htmlspecialchars($id_categorie));
         $this->database->execute();
 
         return $this->database->data;
@@ -63,24 +63,24 @@ class Project_categorie
     public function createProject_Categorie(int $id_project, int $id_categorie): void
     {
         $this->database->presql("INSERT INTO Project_categorie (id_project, id_categorie) VALUES (:id_project, :id_categorie)");
-        $this->database->bindParam(":id_project", $id_project);
-        $this->database->bindParam(":id_categorie", $id_categorie);
+        $this->database->bindParam(":id_project", htmlspecialchars($id_project));
+        $this->database->bindParam(":id_categorie", htmlspecialchars($id_categorie));
         $this->database->execute();
     }
 
     public function updateProject_Categorie(int $id, int $id_project, int $id_categorie): void
     {
         $this->database->presql("UPDATE Project_categorie SET id_project = :id_project, id_categorie = :id_categorie WHERE id_pro_cat = :id_pro_cat");
-        $this->database->bindParam(":id_pro_cat", $id);
-        $this->database->bindParam(":id_project", $id_project);
-        $this->database->bindParam(":id_categorie", $id_categorie);
+        $this->database->bindParam(":id_pro_cat", htmlspecialchars($id));
+        $this->database->bindParam(":id_project", htmlspecialchars($id_project));
+        $this->database->bindParam(":id_categorie", htmlspecialchars($id_categorie));
         $this->database->execute();
     }
 
     public function deleteProject_Categorie(int $id): void
     {
         $this->database->presql("DELETE FROM Project_categorie WHERE id_pro_cat = :id_pro_cat");
-        $this->database->bindParam(":id_pro_cat", $id);
+        $this->database->bindParam(":id_pro_cat", htmlspecialchars($id));
         $this->database->execute();
     }
 }

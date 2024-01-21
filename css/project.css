@@ -167,7 +167,7 @@
 }
 
 .project:hover {
-    background-color: #000000d2;
+    background-color: #2a2a2ab5;
 }
 
 .project>p:not(.description) {
@@ -282,7 +282,7 @@
 
 .description {
     height: 100px;
-    width: 100%;
+    width: calc(100% - 5px);
 
     font-size: 1.2rem;
 
@@ -290,6 +290,7 @@
     border-radius: 10px;
 
     padding-left: 0.5rem;
+    margin-right: 5px;
     margin-bottom: 0.5rem;
     overflow-y: scroll;
 }
@@ -319,22 +320,21 @@
     justify-content: center;
     align-items: center;
 
-    margin: 5%;
+    margin: 1rem;
 
-    background-color: #303544;
+    background-color: #30354486;
     border-radius: 10px;
 }
 
 .project_show{
-    width: calc(100% - 1rem);
+    width: calc(100% - 2rem);
     height: fit-content;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    margin: 0.5rem;
-    margin-right: 1rem;
+    margin: 1rem;
 
     background-color: #303544;
     border-radius: 10px;
@@ -356,7 +356,7 @@
 }
 
 .project_content {
-    width: 90%;
+    width: 80%;
     height: fit-content;
 
     display: flex;
@@ -364,7 +364,19 @@
     justify-content: center;
     align-items: center;
 
-    padding: 5%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.project_content h6 {
+    color: #f4f4f4;
+    width: 100%;
+}
+
+.project_content hr {
+    width: 100%;
+    height: 3px;
+    background-color: #f4f4f4;
 }
 
 .first_content .category_container {
@@ -397,7 +409,6 @@
     justify-content: center;
     align-items: center;
 
-    margin-top: 1rem;
     margin-bottom: 1rem;
 
     background-color: #0000000c;
@@ -408,6 +419,30 @@
     width: 100%;
     object-fit: cover;
     border-radius: 10px;
+}
+
+.text_wrapper {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #0000000c;
+    border-radius: 10px;
+
+    margin-bottom: 1rem;
+}
+
+.text_wrapper p {
+    color: #f4f4f4;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    word-spacing: 0.1em;
+    letter-spacing: 0.1em;
+
+    padding: 1rem;
+
 }
 
 @media screen and (max-width: 769px) {
@@ -450,6 +485,12 @@
         max-width: calc(100% - 2rem);
         flex-direction: column;
         justify-content: space-between;
-
     }
+
+    .project_show{
+        width: calc(100% - 2rem);
+        flex-direction: column;
+        margin: 1rem;
+    }
+
 }

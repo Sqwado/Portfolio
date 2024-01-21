@@ -22,9 +22,24 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
     }
 
     if (isset($parts[3]) && $parts[3] == "save") {
-        $projects->updateProject($id, $project["titre"], $project["main_img"], $project["description"], $project["publi_date"], $_POST["content"]);
+        $token = htmlspecialchars($_POST['token']);
+
+        if (!isset($_SESSION['token']) || $token != $_SESSION['token']) {
+            $_SESSION["message"] = "Erreur lors de l'envoi du message";
+            header("Location: /contact");
+            exit();
+        }
+
+        $content = $_POST["content"];
+        $content = str_replace("<?php%?>", htmlspecialchars("<?php%?>"), $content);
+        $content = str_replace("<script%>", htmlspecialchars("<script>"), $content);
+        $content = str_replace("<script>", htmlspecialchars("<script>"), $content);
+        $content = str_replace("</script>", htmlspecialchars("</script>"), $content);
+        $projects->updateProject($id, $project["titre"], $project["main_img"], $project["description"], $project["publi_date"], $content);
         header("Location: /modifyprojectcontentadmin/$id");
         exit();
+    } else {
+        $_SESSION['token'] = bin2hex(random_bytes(35));
     }
 } else {
     header("Location: /projectadmin");
@@ -66,11 +81,13 @@ $code = $project["content"];
                  </pre>
 
                     <input type="hidden" name="content" id="code_value" value="<?php echo htmlspecialchars($code); ?>">
+                    <input type="hidden" name="token" value="<?= $_SESSION['token'] ?? '' ?>">
 
                     <input type="submit" value="Envoyer">
                 </form>
 
                 <button id="add_img">Ajouter une image</button>
+                <button id="add_paragraph">Ajouter un paragraphe</button>
                 <button id="clean_code">Beautify</button>
 
             </div>
@@ -95,6 +112,7 @@ $code = $project["content"];
         const preview = document.querySelector(".preview");
         const code_value = document.querySelector("#code_value");
         const add_img = document.querySelector("#add_img");
+        const add_paragraph = document.querySelector("#add_paragraph");
         const clean_code = document.querySelector("#clean_code");
 
         beautify();
@@ -123,6 +141,15 @@ $code = $project["content"];
         add_img.addEventListener("click", () => {
             insertTextAtCaret(`<div class="img_wrapper">
         <img src="https://picsum.photos/1920/1080">
+        </div>`)
+            beautify();
+        });
+
+        add_paragraph.addEventListener("click", () => {
+            insertTextAtCaret(`<div class="text_wrapper">
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.
+            </p>
         </div>`)
             beautify();
         });

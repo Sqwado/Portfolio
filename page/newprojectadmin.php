@@ -13,11 +13,21 @@ $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWOR
 
 $projects = new Project($database);
 
-if(isset($_POST["titre"]) && isset($_POST["main_img"]) && isset($_POST["description"]) && isset($_POST["publi_date"])) {
+if (isset($_POST["titre"]) && isset($_POST["main_img"]) && isset($_POST["description"]) && isset($_POST["publi_date"])) {
+    $token = htmlspecialchars($_POST['token']);
+
+    if (!isset($_SESSION['token']) || $token != $_SESSION['token']) {
+        $_SESSION["message"] = "Erreur lors de l'envoi du message";
+        header("Location: /contact");
+        exit();
+    }
+
     $projects->createProject($_POST["titre"], $_POST["main_img"], $_POST["description"], $_POST["publi_date"], "<p>Contenu en cour de création</p>");
     $id = $database->get_connection()->lastInsertId();
     header("Location: /modifyprojectinfoadmin/$id");
     exit();
+} else {
+    $_SESSION['token'] = bin2hex(random_bytes(35));
 }
 
 ?>
@@ -65,6 +75,7 @@ if(isset($_POST["titre"]) && isset($_POST["main_img"]) && isset($_POST["descript
                                 <input type="date" name="publi_date" id="publi_date">
                             </div>
                         </div>
+                        <input type="hidden" name="token" value="<?= $_SESSION['token'] ?? '' ?>">
                         <input type="submit" value="Save">
                     </div>
                 </form>
