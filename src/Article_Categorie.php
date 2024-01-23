@@ -3,6 +3,7 @@
 class Article_categorie
 {
     public $join_categorie = false;
+    public $join_article = false;
 
     public function __construct(
         public Database $database
@@ -11,10 +12,19 @@ class Article_categorie
 
     public function getArticle_Categorie(int $id): array
     {
-        if ($this->join_categorie) {
-            $this->database->presql("SELECT * FROM Article_categorie JOIN Categorie ON Article_categorie.id_categorie = Categorie.id_categorie WHERE id_art_cat = :id_art_cat");
-        } else {
-            $this->database->presql("SELECT * FROM Article_categorie WHERE id_art_cat = :id_art_cat");
+        switch (true) {
+            case $this->join_categorie && $this->join_article:
+                $this->database->presql("SELECT * FROM Article_categorie JOIN Categorie ON Article_categorie.id_categorie = Categorie.id_categorie JOIN Article ON Article_categorie.id_article = Article.id_article WHERE id_art_cat = :id_art_cat");
+                break;
+            case $this->join_categorie:
+                $this->database->presql("SELECT * FROM Article_categorie JOIN Categorie ON Article_categorie.id_categorie = Categorie.id_categorie WHERE id_art_cat = :id_art_cat");
+                break;
+            case $this->join_article:
+                $this->database->presql("SELECT * FROM Article_categorie JOIN Article ON Article_categorie.id_article = Article.id_article WHERE id_art_cat = :id_art_cat");
+                break;
+            default:
+                $this->database->presql("SELECT * FROM Article_categorie WHERE id_art_cat = :id_art_cat");
+                break;
         }
         $this->database->bindParam(":id_art_cat", htmlspecialchars($id));
         $this->database->execute();
@@ -24,10 +34,19 @@ class Article_categorie
 
     function getArticle_CategorieByArticle(int $id_article): array
     {
-        if ($this->join_categorie) {
-            $this->database->presql("SELECT * FROM Article_categorie JOIN Categorie ON Article_categorie.id_categorie = Categorie.id_categorie WHERE id_article = :id_article");
-        } else {
-            $this->database->presql("SELECT * FROM Article_categorie WHERE id_article = :id_article");
+        switch (true) {
+            case $this->join_categorie && $this->join_article:
+                $this->database->presql("SELECT * FROM Article_categorie JOIN Categorie ON Article_categorie.id_categorie = Categorie.id_categorie JOIN Article ON Article_categorie.id_article = Article.id_article WHERE Article_categorie.id_article = :id_article");
+                break;
+            case $this->join_categorie:
+                $this->database->presql("SELECT * FROM Article_categorie JOIN Categorie ON Article_categorie.id_categorie = Categorie.id_categorie WHERE Article_categorie.id_article = :id_article");
+                break;
+            case $this->join_article:
+                $this->database->presql("SELECT * FROM Article_categorie JOIN Article ON Article_categorie.id_article = Article.id_article WHERE Article_categorie.id_article = :id_article");
+                break;
+            default:
+                $this->database->presql("SELECT * FROM Article_categorie WHERE Article_categorie.id_article = :id_article");
+                break;
         }
         $this->database->bindParam(":id_article", htmlspecialchars($id_article));
         $this->database->execute();
@@ -37,10 +56,19 @@ class Article_categorie
 
     function getArticle_CategorieByCategorie(int $id_categorie): array
     {
-        if ($this->join_categorie) {
-            $this->database->presql("SELECT * FROM Article_categorie JOIN Categorie ON Article_categorie.id_categorie = Categorie.id_categorie WHERE id_categorie = :id_categorie");
-        } else {
-            $this->database->presql("SELECT * FROM Article_categorie WHERE id_categorie = :id_categorie");
+        switch (true) {
+            case $this->join_categorie && $this->join_article:
+                $this->database->presql("SELECT * FROM Article_categorie JOIN Categorie ON Article_categorie.id_categorie = Categorie.id_categorie JOIN Article ON Article_categorie.id_article = Article.id_article WHERE Article_categorie.id_categorie = :id_categorie");
+                break;
+            case $this->join_categorie:
+                $this->database->presql("SELECT * FROM Article_categorie JOIN Categorie ON Article_categorie.id_categorie = Categorie.id_categorie WHERE Article_categorie.id_categorie = :id_categorie");
+                break;
+            case $this->join_article:
+                $this->database->presql("SELECT * FROM Article_categorie JOIN Article ON Article_categorie.id_article = Article.id_article WHERE Article_categorie.id_categorie = :id_categorie");
+                break;
+            default:
+                $this->database->presql("SELECT * FROM Article_categorie WHERE Article_categorie.id_categorie = :id_categorie");
+                break;
         }
         $this->database->bindParam(":id_categorie", htmlspecialchars($id_categorie));
         $this->database->execute();
@@ -50,10 +78,19 @@ class Article_categorie
 
     public function getArticle_Categories(): array
     {
-        if ($this->join_categorie) {
-            $this->database->presql("SELECT * FROM Article_categorie JOIN Categorie ON Article_categorie.id_categorie = Categorie.id_categorie");
-        } else {
-            $this->database->presql("SELECT * FROM Article_categorie");
+        switch (true) {
+            case $this->join_categorie && $this->join_article:
+                $this->database->presql("SELECT * FROM Article_categorie JOIN Categorie ON Article_categorie.id_categorie = Categorie.id_categorie JOIN Article ON Article_categorie.id_article = Article.id_article");
+                break;
+            case $this->join_categorie:
+                $this->database->presql("SELECT * FROM Article_categorie JOIN Categorie ON Article_categorie.id_categorie = Categorie.id_categorie");
+                break;
+            case $this->join_article:
+                $this->database->presql("SELECT * FROM Article_categorie JOIN Article ON Article_categorie.id_article = Article.id_article");
+                break;
+            default:
+                $this->database->presql("SELECT * FROM Article_categorie");
+                break;
         }
         $this->database->execute();
 

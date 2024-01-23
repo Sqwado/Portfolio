@@ -13,15 +13,30 @@ $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWOR
 
 $articles = new Article($database);
 
+$categories = new Categorie($database);
+
+$article_categories = new Article_categorie($database);
+$article_categories->join_categorie = true;
+
 if (isset($parts[2]) && is_numeric($parts[2])) {
-    $id = (int) $parts[2];
+    $id = (int) htmlspecialchars($parts[2]);
     $article = $articles->getArticle($id)[0];
     if (empty($article)) {
         header("Location: /articleadmin");
         exit();
     }
 
-    if (isset($parts[3]) && $parts[3] == "save") {
+    if (isset($parts[3]) && $parts[3] == "deletecat" && isset($parts[4]) && is_numeric($parts[4])) {
+        $id_categorie = (int) $parts[4];
+        $article_categories->deleteArticle_Categorie($id_categorie);
+        header("Location: /modifyarticleinfoadmin/$id");
+        exit();
+    } else if (isset($parts[3]) && $parts[3] == "addcat") {
+        $id_categorie = (int) $_POST["categorie"];
+        $article_categories->createArticle_Categorie($id, $id_categorie);
+        header("Location: /modifyarticleinfoadmin/$id");
+        exit();
+    } else if (isset($parts[3]) && $parts[3] == "save") {
         $token = htmlspecialchars($_POST['token']);
 
         if (!isset($_SESSION['token']) || $token != $_SESSION['token']) {
@@ -32,7 +47,7 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
         $articles->updateArticle($id, $_POST["titre"], $_POST["main_img"], $_POST["description"], $_POST["publi_date"], $article["content"]);
         header("Location: /modifyarticleinfoadmin/$id");
         exit();
-    }else{
+    } else {
         $_SESSION['token'] = bin2hex(random_bytes(35));
     }
 } else {
@@ -97,6 +112,36 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
                     <img id="main_img_show" class="main_img_article" src="<?php echo $article["main_img"]; ?>" alt="">
                     <p id="description_show"><?php echo $article["description"]; ?></p>
                     <p id="publi_date_show"><?php echo $article["publi_date"]; ?></p>
+                </div>
+            </div>
+            <div class="show">
+                <h3>Catégorie</h3>
+                <div class="categories">
+                    <?php
+                    $categories = $categories->getCategories();
+                    $article_categories = $article_categories->getArticle_CategorieByArticle($id);
+                    foreach ($article_categories as $category) {
+                    ?>
+                        <div class="categorie">
+                            <p><?php echo $category["nom"]; ?></p>
+                            <a href="/modifyarticleinfoadmin/<?php echo $id; ?>/deletecat/<?php echo $category["id_art_cat"]; ?>">Delete</a>
+                        </div>
+                    <?php } ?>
+                    <div class="add_categorie">
+                        <form action="/modifyarticleinfoadmin/<?php echo $id; ?>/addcat" method="post">
+                            <select name="categorie" id="categorie">
+                                <?php
+                                foreach ($categories as $category) {
+                                    if (in_array($category["id_categorie"], array_column($article_categories, "id_categorie"))) {
+                                        continue;
+                                    }
+                                ?>
+                                    <option value="<?php echo $category["id_categorie"]; ?>"><?php echo $category["nom"]; ?></option>
+                                <?php } ?>
+                            </select>
+                            <input type="submit" value="Add">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

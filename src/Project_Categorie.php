@@ -3,6 +3,7 @@
 class Project_categorie
 {
     public $join_categorie = false;
+    public $join_project = false;
 
     public function __construct(
         public Database $database
@@ -11,10 +12,19 @@ class Project_categorie
 
     public function getProject_Categorie(int $id): array
     {
-        if($this->join_categorie) {
-            $this->database->presql("SELECT * FROM Project_categorie JOIN Categorie ON Project_categorie.id_categorie = Categorie.id_categorie WHERE id_pro_cat = :id_pro_cat");
-        } else {
-            $this->database->presql("SELECT * FROM Project_categorie WHERE id_pro_cat = :id_pro_cat");
+        switch (true) {
+            case $this->join_categorie && $this->join_project:
+                $this->database->presql("SELECT * FROM Project_categorie JOIN Categorie ON Project_categorie.id_categorie = Categorie.id_categorie JOIN Project ON Project_categorie.id_project = Project.id_project WHERE id_pro_cat = :id_pro_cat");
+                break;
+            case $this->join_categorie:
+                $this->database->presql("SELECT * FROM Project_categorie JOIN Categorie ON Project_categorie.id_categorie = Categorie.id_categorie WHERE id_pro_cat = :id_pro_cat");
+                break;
+            case $this->join_project:
+                $this->database->presql("SELECT * FROM Project_categorie JOIN Project ON Project_categorie.id_project = Project.id_project WHERE id_pro_cat = :id_pro_cat");
+                break;
+            default:
+                $this->database->presql("SELECT * FROM Project_categorie WHERE id_pro_cat = :id_pro_cat");
+                break;
         }
         $this->database->bindParam(":id_pro_cat", htmlspecialchars($id));
         $this->database->execute();
@@ -24,10 +34,13 @@ class Project_categorie
 
     function getProject_CategorieByProject(int $id_project): array
     {
-        if($this->join_categorie) {
-            $this->database->presql("SELECT * FROM Project_categorie JOIN Categorie ON Project_categorie.id_categorie = Categorie.id_categorie WHERE id_project = :id_project");
-        } else {
-            $this->database->presql("SELECT * FROM Project_categorie WHERE id_project = :id_project");
+        switch (true) {
+            case $this->join_categorie:
+                $this->database->presql("SELECT * FROM Project_categorie JOIN Categorie ON Project_categorie.id_categorie = Categorie.id_categorie WHERE id_project = :id_project");
+                break;
+            default:
+                $this->database->presql("SELECT * FROM Project_categorie WHERE id_project = :id_project");
+                break;
         }
         $this->database->bindParam(":id_project", htmlspecialchars($id_project));
         $this->database->execute();
@@ -37,10 +50,13 @@ class Project_categorie
 
     function getProject_CategorieByCategorie(int $id_categorie): array
     {
-        if($this->join_categorie) {
-            $this->database->presql("SELECT * FROM Project_categorie JOIN Categorie ON Project_categorie.id_categorie = Categorie.id_categorie WHERE id_categorie = :id_categorie");
-        } else {
-            $this->database->presql("SELECT * FROM Project_categorie WHERE id_categorie = :id_categorie");
+        switch (true) {
+            case $this->join_project:
+                $this->database->presql("SELECT * FROM Project_categorie JOIN Project ON Project_categorie.id_project = Project.id_project WHERE id_categorie = :id_categorie");
+                break;
+            default:
+                $this->database->presql("SELECT * FROM Project_categorie WHERE id_categorie = :id_categorie");
+                break;
         }
         $this->database->bindParam(":id_categorie", htmlspecialchars($id_categorie));
         $this->database->execute();
@@ -50,10 +66,19 @@ class Project_categorie
 
     public function getProject_Categories(): array
     {
-        if($this->join_categorie) {
-            $this->database->presql("SELECT * FROM Project_categorie JOIN Categorie ON Project_categorie.id_categorie = Categorie.id_categorie");
-        } else {
-            $this->database->presql("SELECT * FROM Project_categorie");
+        switch (true) {
+            case $this->join_categorie && $this->join_project:
+                $this->database->presql("SELECT * FROM Project_categorie JOIN Categorie ON Project_categorie.id_categorie = Categorie.id_categorie JOIN Project ON Project_categorie.id_project = Project.id_project");
+                break;
+            case $this->join_categorie:
+                $this->database->presql("SELECT * FROM Project_categorie JOIN Categorie ON Project_categorie.id_categorie = Categorie.id_categorie");
+                break;
+            case $this->join_project:
+                $this->database->presql("SELECT * FROM Project_categorie JOIN Project ON Project_categorie.id_project = Project.id_project");
+                break;
+            default:
+                $this->database->presql("SELECT * FROM Project_categorie");
+                break;
         }
         $this->database->execute();
 

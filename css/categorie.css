@@ -1,0 +1,106 @@
+@import url(/css/style.css);
+
+.link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.new_categorie {
+    width: fit-content;
+    background-color: #0000005a;
+    border-radius: 10px;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.new_categorie img {
+    width: 30px;
+    height: 30px;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+
+.categorie {
+    height: 150px;
+    background-color: #0000005a;
+    border-radius: 10px;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    transition: 0.3s;
+}
+
+.top_categorie {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.top_categorie p {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.categorie_img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin: 0.5rem;
+}
+
+.action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.form input {
+    width: calc(100% - 1rem);
+    padding: 0.5rem;
+    border-radius: 10px;
+    outline: none;
+    font-size: 1rem;
+}
+
+.input{
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+
+
+
+
+

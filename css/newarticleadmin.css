@@ -118,6 +118,60 @@ code>*{
     background-color: #0000001a;
 }
 
+.categories {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.categorie{
+    width: fit-content;
+    height: fit-content;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #0000000c;
+    border-radius: 10px;
+
+    margin: 0.5rem;
+    padding: 0.5rem;
+    gap: 0.5rem;
+
+    position: relative;
+}
+
+.add_categorie{
+    width: fit-content;
+    height: fit-content;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #0000000c;
+    border-radius: 10px;
+
+    margin: 0.5rem;
+    padding: 0.5rem;
+
+    cursor: pointer;
+    position: relative;
+}
+
+.add_categorie input{
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+.add_categorie select{
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
 @media screen and (max-width: 1000px) {
     .code {
         width: 100%;

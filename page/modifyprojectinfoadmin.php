@@ -13,15 +13,30 @@ $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWOR
 
 $projects = new Project($database);
 
+$categories = new Categorie($database);
+
+$project_categories = new Project_categorie($database);
+$project_categories->join_categorie = true;
+
 if (isset($parts[2]) && is_numeric($parts[2])) {
-    $id = (int) $parts[2];
+    $id = (int) htmlspecialchars($parts[2]);
     $project = $projects->getProject($id)[0];
     if (empty($project)) {
         header("Location: /projectadmin");
         exit();
     }
 
-    if (isset($parts[3]) && $parts[3] == "save") {
+    if (isset($parts[3]) && $parts[3] == "deletecat" && isset($parts[4]) && is_numeric($parts[4])) {
+        $id_categorie = (int) $parts[4];
+        $project_categories->deleteProject_Categorie($id_categorie);
+        header("Location: /modifyprojectinfoadmin/$id");
+        exit();
+    } else if (isset($parts[3]) && $parts[3] == "addcat") {
+        $id_categorie = (int) $_POST["categorie"];
+        $project_categories->createProject_Categorie($id, $id_categorie);
+        header("Location: /modifyprojectinfoadmin/$id");
+        exit();
+    } else if (isset($parts[3]) && $parts[3] == "save") {
         $token = htmlspecialchars($_POST['token']);
 
         if (!isset($_SESSION['token']) || $token != $_SESSION['token']) {
@@ -99,6 +114,36 @@ if (isset($parts[2]) && is_numeric($parts[2])) {
                     <img id="main_img_show" class="main_img_project" src="<?php echo $project["main_img"]; ?>" alt="">
                     <p id="description_show"><?php echo $project["description"]; ?></p>
                     <p id="publi_date_show"><?php echo $project["publi_date"]; ?></p>
+                </div>
+            </div>
+            <div class="show">
+                <h3>Catégorie</h3>
+                <div class="categories">
+                    <?php
+                    $categories = $categories->getCategories();
+                    $project_categories = $project_categories->getProject_CategorieByProject($id);
+                    foreach ($project_categories as $category) {
+                    ?>
+                        <div class="categorie">
+                            <p><?php echo $category["nom"]; ?></p>
+                            <a href="/modifyprojectinfoadmin/<?php echo $id; ?>/deletecat/<?php echo $category["id_pro_cat"]; ?>">Delete</a>
+                        </div>
+                    <?php } ?>
+                    <div class="add_categorie">
+                        <form action="/modifyprojectinfoadmin/<?php echo $id; ?>/addcat" method="post">
+                            <select name="categorie" id="categorie">
+                                <?php
+                                foreach ($categories as $category) {
+                                    if (in_array($category["id_categorie"], array_column($project_categories, "id_categorie"))) {
+                                        continue;
+                                    }
+                                ?>
+                                    <option value="<?php echo $category["id_categorie"]; ?>"><?php echo $category["nom"]; ?></option>
+                                <?php } ?>
+                            </select>
+                            <input type="submit" value="Add">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

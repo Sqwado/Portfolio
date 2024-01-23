@@ -22,9 +22,9 @@ if (isset($_POST["titre"]) && isset($_POST["main_img"]) && isset($_POST["descrip
         exit();
     }
 
-    $articles->createArticle($_POST["titre"], $_POST["main_img"], $_POST["description"], $_POST["publi_date"], "<p>Contenu en cour de création</p>");
+    $articles->createArticle($_POST["titre"], $_POST["main_img"], $_POST["description"], $_POST["publi_date"], `<div class="text_wrapper"><p>Contenu en cours de création</p></div>`);
     $id = $database->get_connection()->lastInsertId();
-    header("Location: /modifyarticleinfoadmin/$id");
+    header("Location: /modifyarticlecontentadmin/$id");
     exit();
 } else {
     $_SESSION['token'] = bin2hex(random_bytes(35));

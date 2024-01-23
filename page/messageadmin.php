@@ -115,7 +115,6 @@ $today = new DateTime();
     </main>
 
     <script>
-        console.log("<?= $api_token ?>");
 
         const messages_conteneur = document.getElementById("messages_conteneur");
         const email = document.getElementById("email");

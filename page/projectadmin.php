@@ -13,14 +13,26 @@ $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWOR
 
 $project = new Project($database);
 
+$project_categories = new Project_categorie($database);
+
 if (isset($parts[2]) && is_numeric($parts[2]) && isset($parts[3]) && $parts[3] == "delete") {
     $id = (int) $parts[2];
     $project->deleteProject($id);
     header("Location: /projectadmin");
     exit();
+} else if (isset($parts[2]) && $parts[2] == "categorie" && isset($parts[3]) && is_numeric($parts[3])) {
+    $id_categorie = (int) $parts[3];
+    $project_categories->join_project = true;
+    $projects = $project_categories->getProject_CategorieByCategorie($id_categorie);
+    $categorie = new Categorie($database);
+    $categorie = $categorie->getCategorie($id_categorie)[0];
+    if (empty($categorie)) {
+        header("Location: /projectadmin");
+        exit();
+    }
+} else {
+    $projects = $project->getProjects();
 }
-
-$projects = $project->getProjects();
 
 ?>
 
@@ -67,7 +79,7 @@ $projects = $project->getProjects();
                                         <img class="logo_category" src="<?php echo $categorie["logo"]; ?>" alt="<?php echo $categorie["nom"]; ?>">
                                         <p><?php echo $categorie["nom"]; ?></p>
                                         <object>
-                                            <a href="/home/<?php echo $categorie["id_categorie"]; ?>">
+                                            <a href="/projectadmin/categorie/<?php echo $categorie["id_categorie"]; ?>">
                                                 <span class="link"></span>
                                             </a>
                                         </object>

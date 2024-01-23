@@ -18,7 +18,7 @@ class Categorie
 
     public function getCategories(): array
     {
-        $this->database->presql("SELECT * FROM Categorie");
+        $this->database->presql("SELECT * FROM Categorie ORDER BY nom ASC");
         $this->database->execute();
 
         return $this->database->data;

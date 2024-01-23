@@ -11,9 +11,9 @@ $parts = explode("/", $_SERVER["REQUEST_URI"]);
 
 $database = new Database($DB_HOST, $DB_PORT, $DB_DATABASE, $DB_USER, $DB_PASSWORD);
 
-$competence = new Competence($database);
+$categorie = new Categorie($database);
 
-if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["description"]) && !empty($_POST["description"]) && isset($_POST["logo"]) && !empty($_POST["logo"])) {
+if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["logo"]) && !empty($_POST["logo"])) {
     $token = htmlspecialchars($_POST['token']);
 
     if (!isset($_SESSION['token']) || $token != $_SESSION['token']) {
@@ -23,23 +23,20 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["descripti
     }
 
     $titre = htmlspecialchars($_POST["titre"]);
-    $description = htmlspecialchars($_POST["description"]);
     $logo = htmlspecialchars($_POST["logo"]);
 
     try {
-        $competence->createCompetence($titre, $logo, $description);
-        $_SESSION["message"] = "Competence ajoutée";
+        $categorie->createCategorie($titre, $logo);
+        $_SESSION["message"] = "Categorie ajoutée";
     } catch (Exception $e) {
-        $_SESSION["message"] = "Erreur lors de l'ajout de la competence";
+        $_SESSION["message"] = "Erreur lors de l'ajout de la categorie";
     }
 
-    header("Location: /competenceadmin");
+    header("Location: /categorieadmin");
     exit();
 } else {
     $_SESSION['token'] = bin2hex(random_bytes(35));
 }
-
-
 
 ?>
 
@@ -50,38 +47,29 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["descripti
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="/css/competenceadmin.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <title>Articles</title>
+    <link rel="stylesheet" href="/css/categorie.css">
 </head>
 
 <body>
+
     <?php include "components/navadmin.php"; ?>
 
     <main>
         <div class="top">
-            <h2>New Competence</h2>
+            <h2>New Categorie</h2>
         </div>
 
-        <div class="content new">
-
-            <div class="back">
-                <a href="/competenceadmin">Retour</a>
-            </div>
-
-            <form action="/newcompetenceadmin" method="POST">
+        <div class="content">
+            <form action="/newcategorieadmin" method="POST">
                 <div class="form">
                     <div class="input">
                         <label for="logo">Logo Path</label>
                         <input type="text" name="logo" id="logo" required>
                     </div>
                     <div class="input">
-                        <label for="titre">Titre</label>
+                        <label for="titre">Nom</label>
                         <input type="text" name="titre" id="titre" required>
-                    </div>
-                    <div class="input">
-                        <label for="description">Description</label>
-                        <textarea name="description" id="description" cols="30" rows="10" required></textarea>
                     </div>
                     <div class="input">
                         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?? '' ?>">
@@ -94,4 +82,10 @@ if (isset($_POST["titre"]) && !empty($_POST["titre"]) && isset($_POST["descripti
 
     </main>
 
+    <script>
+
+    </script>
+
 </body>
+
+</html>
