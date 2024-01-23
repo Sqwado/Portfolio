@@ -11,7 +11,7 @@
                 <a href="/homeadmin" id="homeadmin" class="redirect">Home</a>
                 <a href="/projectadmin" id="projectadmin" class="redirect">Projects</a>
                 <a href="/articleadmin" id="articleadmin" class="redirect">Articles</a>
-                <a href="/categorieadmin" id="articleadmin" class="redirect">Categories</a>
+                <a href="/categorieadmin" id="categorieadmin" class="redirect">Categories</a>
                 <a href="/messageadmin" id="messageadmin" class="redirect">Messages</a>
                 <a href="/competenceadmin" id="competenceadmin" class="redirect">Competences</a>
             </div>
